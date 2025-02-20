@@ -1,14 +1,12 @@
 
 "use client"
 import { MockInterview } from '@/utils/schema'
+import { SYSTEM_ENTRYPOINTS } from 'next/dist/shared/lib/constants'
 import React from 'react'
 import { useEffect } from 'react'
 function page(params) {
 
-    useEffect(() => {
-      console.log(params.interviewId)
-    
-    },[])
+   
 
     const GetInterviewDetails=async ()=>{
         const result =await db.select().from(MockInterview)
