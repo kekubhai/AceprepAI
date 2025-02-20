@@ -16,7 +16,7 @@ export default function Header() {
   return (
     <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'bg-white bg-opacity-90 backdrop-blur-md shadow-md' : 'bg-transparent'}`}>
       <div className="container mx-auto px-4 py-4 flex justify-between items-center">
-        <a href="#" className="text-2xl font-bold text-purple-700">AcePrep-AI</a>
+        <a href="#" className="text-2xl font-bold text-purple-700">Ace Prep-AI</a>
         <nav className="hidden md:flex space-x-6">
           <a href="#features" className="text-purple-700 hover:text-purple-900 transition-colors">Features</a>
           <a href="#testimonials" className="text-purple-700 hover:text-purple-900 transition-colors">Testimonials</a>
