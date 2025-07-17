@@ -11,6 +11,7 @@ function InterviewPage({ params }) {
 
   useEffect(() => {
     GetInterviewDetails()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const GetInterviewDetails = async () => {
@@ -56,7 +57,7 @@ function InterviewPage({ params }) {
       ) : (
         <div className="text-center py-12">
           <h2 className="text-2xl font-semibold text-gray-600">Interview not found</h2>
-          <p className="text-gray-500 mt-2">The interview you're looking for doesn't exist.</p>
+          <p className="text-gray-500 mt-2">The interview you&apos;re looking for doesn&apos;t exist.</p>
         </div>
       )}
     </div>

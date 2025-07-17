@@ -32,12 +32,11 @@ export default function Page() {
                 </a>
         
                 <h2 className="mt-6 text-2xl font-bold text-white sm:text-3xl md:text-4xl">
-                  Welcome to Squid 🦑
+                  Welcome to AcePrep.AI 🎯
                 </h2>
         
                 <p className="mt-4 leading-relaxed text-white/90">
-                  Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eligendi nam dolorum aliquam,
-                  quibusdam aperiam voluptatum.
+                  Master your interview skills with AI-powered practice sessions and personalized feedback.
                 </p>
               </div>
             </section>
@@ -66,12 +65,11 @@ export default function Page() {
                   </a>
         
                   <h1 className="mt-2 text-2xl font-bold text-gray-900 sm:text-3xl md:text-4xl">
-                    Welcome to AcePrep.AI🦑
+                    Welcome to AcePrep.AI 🎯
                   </h1>
         
                   <p className="mt-4 leading-relaxed text-gray-500">
-                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eligendi nam dolorum aliquam,
-                    quibusdam aperiam voluptatum.
+                    Get personalized interview preparation with AI-powered coaching and real-time feedback.
                   </p>
                 </div>
                 <SignIn 
