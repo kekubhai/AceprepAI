@@ -61,10 +61,10 @@ const AddNewInterview = () => {
         const resp = await db.insert(MockInterview)
           .values({
             mockId: uuidv4(),
-            JsonResponse: mockJsonResponse,
+            jsonMockResp: mockJsonResponse,
             jobPosition: jobPosition,
-            jobDescription: jobDescription,
-            jobexperience: jobExperience,
+            jobDesc: jobDescription,
+            jobExperience: jobExperience,
             createdBy: user?.primaryEmailAddress?.emailAddress,
             createdAt: moment().format('DD-MM-yyyy'),
           })
