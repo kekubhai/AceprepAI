@@ -3,9 +3,28 @@ import { useSlideIn } from "@/app/hooks/useSlideIn"
 import { ArrowRight, Play, Star } from 'lucide-react'
 import TypingAnimation from "./ui/typing-animation"
 import { RainbowButton } from "./ui/rainbow-button"
+import { AvatarIcon } from "@radix-ui/react-icons"
+import { AvatarCircles } from "./magicui/avatar-circles"
 
 export default function Hero() {
   const [ref, isVisible] = useSlideIn()
+
+  // Sample avatar data for social proof
+  const avatarUrls = [
+   
+    {
+      imageUrl: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face",
+      profileUrl: "#"
+    },
+    {
+      imageUrl: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face",
+      profileUrl: "#"
+    },
+    {
+      imageUrl: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face",
+      profileUrl: "#"
+    }
+  ]
 
   return (
     <section ref={ref} className={`min-h-screen flex items-center justify-center relative overflow-hidden py-20 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
@@ -58,11 +77,11 @@ export default function Hero() {
             
             {/* Social Proof */}
             <div className="flex items-center space-x-6 pt-8">
-              <div className="flex -space-x-2">
-                {[1, 2, 3, 4].map((i) => (
-                  <div key={i} className="w-10 h-10 rounded-full bg-gradient-to-r from-blue-400 to-purple-500 border-2 border-white"></div>
-                ))}
-              </div>
+              <AvatarCircles 
+                avatarUrls={avatarUrls}
+                numPeople={99}
+                className="flex-shrink-0"
+              />
               <div className="text-sm text-gray-600">
                 <span className="font-semibold text-gray-900">10,000+</span> professionals prepared
               </div>

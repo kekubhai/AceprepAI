@@ -1,16 +1,19 @@
-import React from 'react'
-import Header from './_components/Header'
+import React from 'react';
+import Sidebar from './_components/Sidebar';
+import Header from './_components/Header';
 
-const DashBoardLaoyout = ({children}) => {
+const DashBoardLayout = ({children}) => {
   return (
-    <div className='justify-center'>
-      <Header/>
-      <div className='mx-5 md:mx-20 lg:mx-32'>
-      {children}
+    <div className='flex h-screen bg-gray-50'>
+      <Sidebar />
+      <div className='flex-1 overflow-y-auto'>
+        <Header />
+        <div className='mx-auto max-w-7xl p-6'>
+          {children}
+        </div>
       </div>
-    
     </div>
   )
 }
 
-export default DashBoardLaoyout
+export default DashBoardLayout

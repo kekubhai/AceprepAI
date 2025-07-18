@@ -1,25 +1,18 @@
-/* eslint-disable react/no-unescaped-entities */
 "use client"
-import React, { useState } from 'react';
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
+
 import { Button } from '@/components/ui/button';
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import { chatSession } from '@/utils/GeminiAiModels';
-import { Briefcase, Code, LoaderCircle, Plus, Star, Trophy, X } from 'lucide-react';
-import { MockInterview } from '@/utils/schema';
-import { v4 as uuidv4 } from 'uuid';
-import { useUser } from '@clerk/nextjs';
-import moment from 'moment/moment';
 import { db } from '@/utils/db';
+import { MockInterview } from '@/utils/schema';
+import { chatSession } from '@/utils/GeminiAiModels';
+import { useUser } from '@clerk/nextjs';
+import { Briefcase, Code, LoaderCircle, Plus, Star, Trophy, X } from 'lucide-react';
+import moment from 'moment/moment';
 import { useRouter } from 'next/navigation';
+import React, { useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 
 const jobTemplates = [
   {
@@ -48,15 +41,14 @@ const jobTemplates = [
   }
 ];
 
-const AddNewInterview = () => {
-  const [openDialog, setDialog] = useState(false);
+export default function NewInterviewCard() {
+  const [openDialog, setOpenDialog] = useState(false);
   const [jobPosition, setJobPosition] = useState('');
   const [jobDescription, setJobDescription] = useState('');
   const [jobExperience, setJobExperience] = useState('');
   const [loading, setLoading] = useState(false);
   const [step, setStep] = useState(1); // 1 for templates, 2 for custom form
   const { user } = useUser();
-  const [jsonResponse, setJsonResponse] = useState([]);
   const router = useRouter();
 
   const selectTemplate = (template) => {
@@ -75,7 +67,7 @@ const AddNewInterview = () => {
 
   const closeDialog = () => {
     resetForm();
-    setDialog(false);
+    setOpenDialog(false);
   };
 
   const onSubmit = async (e) => {
@@ -97,57 +89,60 @@ const AddNewInterview = () => {
       const mockJsonResponse = responseText.replace('```json', '').replace('```', ''); // Clean the AI response
 
       try {
-        const parsedResponse = JSON.parse(mockJsonResponse); // Parse the cleaned JSON
-        setJsonResponse(parsedResponse);
-
-        // Insert into the database
-        const resp = await db.insert(MockInterview)
-          .values({
-            mockId: uuidv4(),
-            jsonMockResp: mockJsonResponse,
-            jobPosition: jobPosition,
-            jobDesc: jobDescription,
-            jobExperience: jobExperience,
-            createdBy: user?.primaryEmailAddress?.emailAddress,
-            createdAt: moment().format('DD-MM-yyyy'),
-          })
-          .returning({ mockId: MockInterview.mockId });
-
-        // After successful insertion, navigate to the interview details page
-        if (resp && resp.length > 0) {
-          setDialog(false);
-          router.push('/dashboard/interview/' + resp[0].mockId);
-        } else {
-          console.error("Database insertion failed", resp);
-        }
+        // Parse the cleaned JSON to validate it
+        JSON.parse(mockJsonResponse);
+        
+        // Generate a unique ID for the interview
+        const mockId = uuidv4();
+  
+        // Save to database
+        await db.insert(MockInterview).values({
+          jsonMockResp: mockJsonResponse,
+          jobPosition: jobPosition,
+          jobDesc: jobDescription,
+          jobExperience: jobExperience,
+          createdBy: user.primaryEmailAddress.emailAddress,
+          createdAt: moment().format('DD-MM-yyyy'),
+          mockId: mockId
+        });
+  
+        // Close dialog and redirect to the new interview page
+        setOpenDialog(false);
+        router.push(`/dashboard/interview/${mockId}`);
       } catch (error) {
-        console.error("Error parsing AI response:", error);
+        console.error("Error parsing JSON response:", error);
       }
     } catch (error) {
-      console.error("Error during AI session or database operation:", error);
+      console.error("Error creating interview:", error);
     } finally {
-      setLoading(false); // Stop loading animation
+      setLoading(false);
     }
   };
 
   return (
-    <div>
-      {/* Card to open the dialog */}
-      <div 
-        className="bg-white rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-all cursor-pointer group"
-        onClick={() => setDialog(true)}
-      >
-        <div className="p-6 flex flex-col items-center justify-center h-full min-h-[200px] text-center">
-          <div className="p-3 rounded-full bg-blue-100 text-blue-600 mb-4 group-hover:bg-blue-200 transition-colors">
-            <Plus className="h-6 w-6" />
-          </div>
-          <h3 className="text-xl font-semibold text-gray-900 mb-2">Create New Interview</h3>
-          <p className="text-gray-600 text-sm">Generate AI-powered interview questions tailored to your job role</p>
+    <div className="bg-gradient-to-br from-blue-50 to-purple-50 rounded-xl shadow-sm border border-blue-100 overflow-hidden">
+      <div className="px-6 pt-6 pb-8 text-center">
+        <div className="mx-auto w-14 h-14 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white mb-4">
+          <Plus className="w-6 h-6" />
         </div>
+        
+        <h3 className="text-xl font-semibold text-gray-900 mb-2">Create Interview</h3>
+        <p className="text-gray-600 text-sm mb-5">Get AI-generated questions tailored to your job role</p>
+        
+        <Button 
+          onClick={() => setOpenDialog(true)}
+          className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-5 py-2 rounded-lg font-medium text-sm"
+        >
+          Start Now
+        </Button>
+      </div>
+      
+      <div className="px-6 py-3 bg-blue-600 text-center">
+        <p className="text-xs text-blue-100">Perfect for technical, behavioral & leadership interviews</p>
       </div>
 
       {/* Dialog for adding new interview */}
-      <Dialog open={openDialog} onOpenChange={setDialog}>
+      <Dialog open={openDialog} onOpenChange={setOpenDialog}>
         <DialogContent className="max-w-xl">
           <DialogHeader>
             <div className="flex items-center justify-between">
@@ -258,7 +253,7 @@ const AddNewInterview = () => {
               
               <div className="p-3 bg-amber-50 border border-amber-100 rounded-lg text-sm text-amber-700 flex items-start">
                 <Star className="h-4 w-4 text-amber-500 mr-2 mt-0.5" />
-                <p>We'll generate tailored interview questions based on your job position, description, and experience level.</p>
+                <p>We will generate tailored interview questions based on your job position, description, and experience level.</p>
               </div>
 
               <div className="flex space-x-3 pt-3">
@@ -290,7 +285,5 @@ const AddNewInterview = () => {
         </DialogContent>
       </Dialog>
     </div>
-  )
+  );
 }
-
-export default AddNewInterview;

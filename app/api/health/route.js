@@ -15,7 +15,7 @@ export async function GET() {
         message: 'Health check failed',
         timestamp: new Date().toISOString(),
       },
-      { status: 500 }
+      { status: 500 } 
     );
   }
 }
