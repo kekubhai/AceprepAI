@@ -17,17 +17,25 @@ export default function Hero() {
             </TypingAnimation>
         </h1>
         <p className="text-xl md:text-2xl text-purple-800 mb-8 max-w-2xl mx-auto">Prepare smarter, not harder. Let AI guide your interview success with personalized coaching and real-time feedback.</p>
-        <a href="#features" className=" m-5">
-         <RainbowButton>
-            Get Started
-         </RainbowButton>
-          <ArrowRight className="ml-2" size={20} />
-        </a>
+        <div className="flex items-center justify-center mb-8">
+          <a href="#features" className="inline-flex items-center">
+            <RainbowButton>
+              Get Started
+              <ArrowRight className="ml-2" size={20} />
+            </RainbowButton>
+          </a>
+        </div>
         <div className="mt-12 relative">
           <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-64 h-64 bg-yellow-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"></div>
           <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-64 h-64 bg-pink-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-2000"></div>
           <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-64 h-64 bg-purple-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-4000"></div>
-          <img src="/placeholder.svg?height=300&width=600" alt="AI Interview Preparation" className="mx-auto relative z-10 rounded-lg shadow-2xl colorful-shadow" />
+          <div className="mx-auto relative z-10 rounded-lg shadow-2xl colorful-shadow bg-white p-8 max-w-2xl">
+            <div className="text-center">
+              <div className="text-6xl mb-4">🎯</div>
+              <h3 className="text-2xl font-bold text-gray-800 mb-2">AI-Powered Interview Preparation</h3>
+              <p className="text-gray-600">Get personalized feedback and practice with realistic interview scenarios</p>
+            </div>
+          </div>
         </div>
       </div>
     </section>
