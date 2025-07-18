@@ -81,7 +81,41 @@ export default function NewInterviewCard() {
       return; // Exit early if any required field is missing
     }
 
-    const inputPrompt = `Job Position: ${jobPosition}, Job Description: ${jobDescription}, Years of Experience: ${jobExperience}, Depending on the given information, please give me ${process.env.NEXT_PUBLIC_INTERVIEW_QUESTION_COUNT} questions and their answers in JSON format. Provide questions and answers in JSON.`;
+    const inputPrompt = `You are an experienced technical interviewer specializing in evaluating candidates for the role of: "${jobPosition}". 
+
+Here is the Job Description:
+${jobDescription}
+
+Candidate's Years of Experience: ${jobExperience} years.
+
+Your goal is to craft an interview experience that goes beyond textbook knowledge and assesses the candidate’s:
+- Depth of understanding in core concepts related to this role.
+- Practical experience in solving real-world, complex problems in this domain.
+- Familiarity with best practices, trade-offs, and debugging in production environments.
+- Ability to communicate technical decisions and reasoning clearly.
+
+Requirements for your output:
+1. Generate exactly ${process.env.NEXT_PUBLIC_INTERVIEW_QUESTION_COUNT} interview questions.
+2. For each question, focus on pushing the candidate's thinking to uncover:
+   - Their depth of expertise.
+   - Their experience with hands-on implementation.
+   - Common mistakes or misconceptions.
+   - How they reason through ambiguity or incomplete requirements.
+3. The questions should avoid generic or trivial queries (e.g., "What is React?").
+4. Prioritize questions that lead to discussions about trade-offs, architectural decisions, debugging real-life issues, or performance bottlenecks.
+5. Each question must be followed by a detailed, technically precise answer with examples when applicable.
+
+Output Format (JSON):
+[
+  {
+    "question": "...",
+    "answer": "..."
+  },
+  ...
+]
+
+The JSON must be valid and syntactically correct.`;
+
 
     try {
       const result = await chatSession.sendMessage(inputPrompt);
