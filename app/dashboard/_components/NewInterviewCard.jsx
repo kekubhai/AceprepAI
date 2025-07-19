@@ -1,6 +1,6 @@
 "use client"
 
-import { Button } from '@/components/ui/button';
+
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -163,12 +163,12 @@ The JSON must be valid and syntactically correct.`;
         <h3 className="text-xl font-semibold text-gray-900 mb-2">Create Interview</h3>
         <p className="text-gray-600 text-sm mb-5">Get AI-generated questions tailored to your job role</p>
         
-        <Button 
+        <button
           onClick={() => setOpenDialog(true)}
           className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-5 py-2 rounded-lg font-medium text-sm"
         >
           Start Now
-        </Button>
+        </button>
       </div>
       
       <div className="px-6 py-3 bg-blue-600 text-center">
@@ -177,10 +177,10 @@ The JSON must be valid and syntactically correct.`;
 
       {/* Dialog for adding new interview */}
       <Dialog open={openDialog} onOpenChange={setOpenDialog}>
-        <DialogContent className="max-w-xl">
+        <DialogContent className="max-w-xl bg-white">
           <DialogHeader>
             <div className="flex items-center justify-between">
-              <DialogTitle className="text-xl font-semibold">
+              <DialogTitle className="text-xl font-semibold text-black">
                 {step === 1 ? 'Create Mock Interview' : 'Interview Details'}
               </DialogTitle>
               <button 
@@ -190,7 +190,7 @@ The JSON must be valid and syntactically correct.`;
                 <X className="h-4 w-4 text-gray-500" />
               </button>
             </div>
-            <DialogDescription className="text-gray-500 mt-2">
+            <DialogDescription className="text-gray-500 mt-2 bg-white">
               {step === 1 
                 ? 'Choose a template or create a custom interview' 
                 : 'Tell us more about the job position you\'re preparing for'}
@@ -199,7 +199,7 @@ The JSON must be valid and syntactically correct.`;
           
           {step === 1 ? (
             <div>
-              <div className="mb-6">
+              <div className="mb-6 bg-white">
                 <h3 className="text-sm font-medium text-gray-700 mb-3 flex items-center">
                   <Trophy className="h-4 w-4 mr-2 text-amber-500" />
                   Popular Templates

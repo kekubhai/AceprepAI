@@ -90,6 +90,8 @@ export default function Sidebar() {
                 src={user?.imageUrl || 'https://images.unsplash.com/photo-1599566150163-29194dcaad36?w=150&h=150&fit=crop&crop=face'}
                 alt="Profile"
                 className="h-full w-full object-cover"
+                width={40}
+                height={40}
               />
             </div>
             <div className="flex flex-col">

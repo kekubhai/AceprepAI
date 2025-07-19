@@ -6,10 +6,11 @@ import { RainbowButton } from "./ui/rainbow-button"
 import { AvatarIcon } from "@radix-ui/react-icons"
 import { AvatarCircles } from "./magicui/avatar-circles"
 import Link from 'next/link'
+import { useUser } from "@clerk/nextjs"
 
 export default function Hero() {
   const [ref, isVisible] = useSlideIn()
-
+  const { isSignedIn } = useUser()
   // Sample avatar data for social proof
   const avatarUrls = [
    
@@ -65,6 +66,14 @@ export default function Hero() {
             
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4">
+             {isSignedIn && (
+        <Link href="/dashboard" passHref>
+          <button className="px-8 py-4 text-lg font-semibold bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl hover:opacity-90 transition-all">
+            Go to Dashboard
+          </button>
+        </Link>
+      )}
+
               <Link href="/sign-up" passHref>
                 <button className="px-8 py-4 text-lg font-semibold bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl hover:opacity-90 transition-all">
                   Start Free Trial
