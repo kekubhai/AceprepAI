@@ -1,4 +1,5 @@
 import { Facebook, Twitter, Instagram, Linkedin } from 'lucide-react'
+import Link from 'next/link'
 
 export default function Footer() {
   return (
@@ -18,10 +19,10 @@ export default function Footer() {
           <div>
             <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
             <ul className="space-y-2">
-              <li><a href="#features" className="hover:text-yellow-300 transition-colors duration-300">Features</a></li>
-              <li><a href="#testimonials" className="hover:text-yellow-300 transition-colors duration-300">Testimonials</a></li>
-              <li><a href="#pricing" className="hover:text-yellow-300 transition-colors duration-300">Pricing</a></li>
-              <li><a href="#contact" className="hover:text-yellow-300 transition-colors duration-300">Contact</a></li>
+              <li><Link href="#features" className="hover:text-yellow-300 transition-colors duration-300">Features</Link></li>
+              <li><Link href="#testimonials" className="hover:text-yellow-300 transition-colors duration-300">Testimonials</Link></li>
+              <li><Link href="#pricing" className="hover:text-yellow-300 transition-colors duration-300">Pricing</Link></li>
+              <li><Link href="#contact" className="hover:text-yellow-300 transition-colors duration-300">Contact</Link></li>
             </ul>
           </div>
           <div>

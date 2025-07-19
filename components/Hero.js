@@ -5,6 +5,7 @@ import TypingAnimation from "./ui/typing-animation"
 import { RainbowButton } from "./ui/rainbow-button"
 import { AvatarIcon } from "@radix-ui/react-icons"
 import { AvatarCircles } from "./magicui/avatar-circles"
+import Link from 'next/link'
 
 export default function Hero() {
   const [ref, isVisible] = useSlideIn()
@@ -64,15 +65,17 @@ export default function Hero() {
             
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4">
-              <RainbowButton className="px-8 py-4 text-lg font-semibold">
-                Start Free Trial
-                <ArrowRight className="ml-2 w-5 h-5" />
-              </RainbowButton>
-              
-              <button className="inline-flex items-center px-8 py-4 text-lg font-semibold text-gray-700 bg-white border-2 border-gray-200 rounded-xl hover:border-gray-300 transition-all duration-200 hover:scale-105">
-                <Play className="w-5 h-5 mr-2" />
-                Watch Demo
-              </button>
+              <Link href="/sign-up" passHref>
+                <button className="px-8 py-4 text-lg font-semibold bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl hover:opacity-90 transition-all">
+                  Start Free Trial
+                </button>
+              </Link>
+              <Link href="/demo" passHref>
+                <button className="inline-flex items-center px-8 py-4 text-lg font-semibold text-gray-700 bg-white border-2 border-gray-200 rounded-xl hover:border-gray-300 transition-all duration-200 hover:scale-105">
+                  <Play className="w-5 h-5 mr-2" />
+                  Watch Demo
+                </button>
+              </Link>
             </div>
             
             {/* Social Proof */}

@@ -1,5 +1,6 @@
 import { useSlideIn } from "@/app/hooks/useSlideIn"
 import { Check, Star, Sparkles, Crown, ArrowRight } from 'lucide-react'
+import Link from 'next/link'
 
 export default function Pricing() {
   const [ref, isVisible] = useSlideIn()
@@ -146,10 +147,12 @@ export default function Pricing() {
           <p className="text-gray-600 mb-4">
             Need a custom solution? We&rsquo;re here to help.
           </p>
-          <button className="inline-flex items-center px-6 py-3 bg-white text-gray-700 border-2 border-gray-200 rounded-xl hover:border-gray-300 transition-all duration-200 hover:scale-105">
-            Schedule a Demo
-            <ArrowRight className="ml-2 w-5 h-5" />
-          </button>
+          <Link href="/contact" passHref>
+            <button className="inline-flex items-center px-6 py-3 bg-white text-gray-700 border-2 border-gray-200 rounded-xl hover:border-gray-300 transition-all duration-200 hover:scale-105">
+              Schedule a Demo
+              <ArrowRight className="ml-2 w-5 h-5" />
+            </button>
+          </Link>
         </div>
       </div>
     </section>

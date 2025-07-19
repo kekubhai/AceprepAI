@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Menu, X, ArrowRight } from 'lucide-react'
+import Link from 'next/link'
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -29,29 +30,33 @@ export default function Header() {
           
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center space-x-8">
-            <a href="#features" className="text-gray-700 hover:text-blue-600 font-medium transition-colors duration-200">
+            <Link href="#features" className="text-gray-700 hover:text-blue-600 font-medium transition-colors duration-200">
               Features
-            </a>
-            <a href="#testimonials" className="text-gray-700 hover:text-blue-600 font-medium transition-colors duration-200">
+            </Link>
+            <Link href="#testimonials" className="text-gray-700 hover:text-blue-600 font-medium transition-colors duration-200">
               Testimonials
-            </a>
-            <a href="#pricing" className="text-gray-700 hover:text-blue-600 font-medium transition-colors duration-200">
+            </Link>
+            <Link href="#pricing" className="text-gray-700 hover:text-blue-600 font-medium transition-colors duration-200">
               Pricing
-            </a>
-            <a href="#contact" className="text-gray-700 hover:text-blue-600 font-medium transition-colors duration-200">
+            </Link>
+            <Link href="#contact" className="text-gray-700 hover:text-blue-600 font-medium transition-colors duration-200">
               Contact
-            </a>
+            </Link>
           </nav>
           
           {/* Desktop CTA */}
           <div className="hidden lg:flex items-center space-x-4">
-            <button className="text-gray-700 hover:text-blue-600 font-medium transition-colors duration-200">
-              Sign In
-            </button>
-            <button className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-2.5 rounded-xl font-semibold hover:shadow-lg transition-all duration-200 hover:scale-105">
-              Get Started
-              <ArrowRight className="inline-block ml-2 w-4 h-4" />
-            </button>
+            <Link href="/sign-in" passHref>
+              <button className="text-gray-700 hover:text-blue-600 font-medium transition-colors duration-200">
+                Sign In
+              </button>
+            </Link>
+            <Link href="/sign-up" passHref>
+              <button className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-2.5 rounded-xl font-semibold hover:shadow-lg transition-all duration-200 hover:scale-105">
+                Get Started
+                <ArrowRight className="inline-block ml-2 w-4 h-4" />
+              </button>
+            </Link>
           </div>
 
           {/* Mobile Menu Button */}

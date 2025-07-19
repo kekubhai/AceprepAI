@@ -1,5 +1,6 @@
 import { useSlideIn } from "@/app/hooks/useSlideIn"
 import { BookOpen, Users, Zap, BarChart, ArrowRight, CheckCircle, TrendingUp, Brain } from 'lucide-react'
+import Link from 'next/link'
 
 export default function Features() {
   const [ref, isVisible] = useSlideIn()
@@ -111,10 +112,12 @@ export default function Features() {
               </div>
               
               <div className="mt-8 flex items-center space-x-4">
-                <button className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-xl hover:from-blue-700 hover:to-purple-700 transition-all duration-200 hover:scale-105">
-                  Get Started Free
-                  <ArrowRight className="ml-2 w-5 h-5" />
-                </button>
+                <Link href="/sign-up" passHref>
+                  <button className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-xl hover:from-blue-700 hover:to-purple-700 transition-all duration-200 hover:scale-105">
+                    Get Started Free
+                    <ArrowRight className="ml-2 w-5 h-5" />
+                  </button>
+                </Link>
                 <span className="text-sm text-gray-500">No credit card required</span>
               </div>
             </div>
