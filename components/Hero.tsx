@@ -2,7 +2,7 @@
 
 import { useSlideIn } from "../app/hooks/useSlideIn";
 import { ArrowRight, Play, Star } from 'lucide-react';
-import { AvatarCircles } from "./magicui/avatar-circles";
+
 import Link from 'next/link';
 import { useUser } from "@clerk/nextjs";
 import React from "react";
@@ -90,11 +90,7 @@ export default function Hero() {
 
             {/* Social Proof */}
             <div className="flex items-center space-x-6 pt-8">
-              <AvatarCircles
-                avatarUrls={avatarUrls}
-                numPeople={99}
-                className="flex-shrink-0"
-              />
+             
               <div className="text-sm text-gray-600">
                 <span className="font-semibold text-gray-900">10,000+</span> professionals prepared
               </div>
