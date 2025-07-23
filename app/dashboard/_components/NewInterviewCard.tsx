@@ -1,157 +1,103 @@
-/* eslint-disable react/no-unescaped-entities */
-"use client"
-import React, { useState } from 'react';
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import { chatSession } from '@/utils/GeminiAiModels';
-import { Briefcase, Code, LoaderCircle, Plus, Star, Trophy, X } from 'lucide-react';
-import { MockInterview } from '@/utils/schema';
-import { v4 as uuidv4 } from 'uuid';
-import { useUser } from '@clerk/nextjs';
-import moment from 'moment/moment';
-import { db } from '@/utils/db';
-import { useRouter } from 'next/navigation';
+"use client";
 
-const jobTemplates = [
+import React, { useState, FormEvent } from "react";
+import { Plus, X, Trophy, Star, LoaderCircle, Briefcase, Code } from "lucide-react";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "../../../components/ui/dialog";
+import { Input } from "../../../components/ui/input";
+import { Textarea } from "../../../components/ui/textarea";
+
+interface JobTemplate {
+  title: string;
+  description: string;
+  yearsExp: number;
+  icon: React.ReactNode;
+}
+
+const jobTemplates: JobTemplate[] = [
   {
     title: 'Frontend Developer',
     description: 'React, JavaScript, CSS, HTML, responsive design experience',
     yearsExp: 2,
-    icon: <Code className="h-5 w-5 text-blue-500" />
+    icon: <Code className="h-5 w-5 text-blue-500" />,
   },
   {
     title: 'Backend Engineer',
     description: 'Node.js, Express, databases, API design, cloud services',
     yearsExp: 3,
-    icon: <Code className="h-5 w-5 text-green-500" />
+    icon: <Code className="h-5 w-5 text-green-500" />,
   },
   {
     title: 'Full Stack Developer',
     description: 'MERN stack, full software lifecycle, deployment pipelines',
     yearsExp: 4,
-    icon: <Code className="h-5 w-5 text-purple-500" />
+    icon: <Code className="h-5 w-5 text-purple-500" />,
   },
   {
     title: 'Product Manager',
     description: 'Agile, roadmap creation, stakeholder management, user research',
     yearsExp: 5,
-    icon: <Briefcase className="h-5 w-5 text-amber-500" />
-  }
+    icon: <Briefcase className="h-5 w-5 text-amber-500" />,
+  },
 ];
 
-const AddNewInterview = () => {
-  const [openDialog, setDialog] = useState(false);
-  const [jobPosition, setJobPosition] = useState('');
-  const [jobDescription, setJobDescription] = useState('');
-  const [jobExperience, setJobExperience] = useState('');
+export default function NewInterviewCard() {
+  const [openDialog, setOpenDialog] = useState(false);
+  const [step, setStep] = useState(1);
+  const [jobPosition, setJobPosition] = useState("");
+  const [jobDescription, setJobDescription] = useState("");
+  const [jobExperience, setJobExperience] = useState("");
   const [loading, setLoading] = useState(false);
-  const [step, setStep] = useState(1); // 1 for templates, 2 for custom form
-  const { user } = useUser();
-  const [jsonResponse, setJsonResponse] = useState([]);
-  const router = useRouter();
 
-  const selectTemplate = (template) => {
+  const closeDialog = () => {
+    setOpenDialog(false);
+    setStep(1);
+    setJobPosition("");
+    setJobDescription("");
+    setJobExperience("");
+    setLoading(false);
+  };
+
+  const selectTemplate = (template: JobTemplate) => {
     setJobPosition(template.title);
     setJobDescription(template.description);
     setJobExperience(template.yearsExp.toString());
     setStep(2);
   };
 
-  const resetForm = () => {
-    setJobPosition('');
-    setJobDescription('');
-    setJobExperience('');
-    setStep(1);
-  };
-
-  const closeDialog = () => {
-    resetForm();
-    setDialog(false);
-  };
-
-  const onSubmit = async (e) => {
+  const onSubmit = (e: FormEvent) => {
     e.preventDefault();
     setLoading(true);
-
-    // Validation to ensure all fields are filled
-    if (!jobPosition || !jobDescription || !jobExperience || !user?.primaryEmailAddress?.emailAddress) {
-      console.error("Missing required fields");
+    // Simulate async operation
+    setTimeout(() => {
       setLoading(false);
-      return; // Exit early if any required field is missing
-    }
-
-    const inputPrompt = `Job Position: ${jobPosition}, Job Description: ${jobDescription}, Years of Experience: ${jobExperience}, Depending on the given information, please give me ${process.env.NEXT_PUBLIC_INTERVIEW_QUESTION_COUNT} questions and their answers in JSON format. Provide questions and answers in JSON.`;
-
-    try {
-      const result = await chatSession.sendMessage(inputPrompt);
-      const responseText = await result.response.text(); // Wait for the response to be text
-      const mockJsonResponse = responseText.replace('```json', '').replace('```', ''); // Clean the AI response
-
-      try {
-        const parsedResponse = JSON.parse(mockJsonResponse); // Parse the cleaned JSON
-        setJsonResponse(parsedResponse);
-
-        // Insert into the database
-        const resp = await db.insert(MockInterview)
-          .values({
-            mockId: uuidv4(),
-            jsonMockResp: mockJsonResponse,
-            jobPosition: jobPosition,
-            jobDesc: jobDescription,
-            jobExperience: jobExperience,
-            createdBy: user?.primaryEmailAddress?.emailAddress,
-            createdAt: moment().format('DD-MM-yyyy'),
-          })
-          .returning({ mockId: MockInterview.mockId });
-
-        // After successful insertion, navigate to the interview details page
-        if (resp && resp.length > 0) {
-          setDialog(false);
-          router.push('/dashboard/interview/' + resp[0].mockId);
-        } else {
-          console.error("Database insertion failed", resp);
-        }
-      } catch (error) {
-        console.error("Error parsing AI response:", error);
-      }
-    } catch (error) {
-      console.error("Error during AI session or database operation:", error);
-    } finally {
-      setLoading(false); // Stop loading animation
-    }
+      closeDialog();
+    }, 1500);
   };
 
   return (
-    <div>
-      {/* Card to open the dialog */}
-      <div 
-        className="bg-white rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-all cursor-pointer group"
-        onClick={() => setDialog(true)}
-      >
-        <div className="p-6 flex flex-col items-center justify-center h-full min-h-[200px] text-center">
-          <div className="p-3 rounded-full bg-blue-100 text-blue-600 mb-4 group-hover:bg-blue-200 transition-colors">
-            <Plus className="h-6 w-6" />
-          </div>
-          <h3 className="text-xl font-semibold text-gray-900 mb-2">Create New Interview</h3>
-          <p className="text-gray-600 text-sm">Generate AI-powered interview questions tailored to your job role</p>
+    <div className="bg-gradient-to-br from-blue-50 to-purple-50 rounded-xl shadow-sm border border-blue-100 overflow-hidden">
+      <div className="px-6 pt-6 pb-8 text-center">
+        <div className="mx-auto w-14 h-14 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white mb-4">
+          <Plus className="w-6 h-6" />
         </div>
+        <h3 className="text-xl font-semibold text-gray-900 mb-2">Create Interview</h3>
+        <p className="text-gray-600 text-sm mb-5">Get AI-generated questions tailored to your job role</p>
+        <button
+          onClick={() => setOpenDialog(true)}
+          className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-5 py-2 rounded-lg font-medium text-sm"
+        >
+          Start Now
+        </button>
       </div>
-
+      <div className="px-6 py-3 bg-blue-600 text-center">
+        <p className="text-xs text-blue-100">Perfect for technical, behavioral & leadership interviews</p>
+      </div>
       {/* Dialog for adding new interview */}
-      <Dialog open={openDialog} onOpenChange={setDialog}>
-        <DialogContent className="max-w-xl">
+      <Dialog open={openDialog} onOpenChange={setOpenDialog}>
+        <DialogContent className="max-w-xl bg-white">
           <DialogHeader>
             <div className="flex items-center justify-between">
-              <DialogTitle className="text-xl font-semibold">
+              <DialogTitle className="text-xl font-semibold text-black">
                 {step === 1 ? 'Create Mock Interview' : 'Interview Details'}
               </DialogTitle>
               <button 
@@ -161,16 +107,15 @@ const AddNewInterview = () => {
                 <X className="h-4 w-4 text-gray-500" />
               </button>
             </div>
-            <DialogDescription className="text-gray-500 mt-2">
+            <p className="text-gray-500 mt-2 bg-white">
               {step === 1 
                 ? 'Choose a template or create a custom interview' 
                 : 'Tell us more about the job position you\'re preparing for'}
-            </DialogDescription>
+            </p>
           </DialogHeader>
-          
           {step === 1 ? (
             <div>
-              <div className="mb-6">
+              <div className="mb-6 bg-white">
                 <h3 className="text-sm font-medium text-gray-700 mb-3 flex items-center">
                   <Trophy className="h-4 w-4 mr-2 text-amber-500" />
                   Popular Templates
@@ -196,13 +141,11 @@ const AddNewInterview = () => {
                   ))}
                 </div>
               </div>
-              
               <div className="flex justify-center items-center">
                 <div className="w-full border-t border-gray-200"></div>
                 <span className="px-3 text-xs text-gray-500 bg-white">or</span>
                 <div className="w-full border-t border-gray-200"></div>
               </div>
-              
               <button 
                 onClick={() => setStep(2)}
                 className="w-full mt-6 py-2 px-4 text-center text-sm text-blue-600 bg-blue-50 hover:bg-blue-100 rounded-lg transition-colors"
@@ -212,7 +155,6 @@ const AddNewInterview = () => {
             </div>
           ) : (
             <form onSubmit={onSubmit} className="space-y-5">
-              {/* Job Position Input */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
                   Job Position
@@ -225,8 +167,6 @@ const AddNewInterview = () => {
                   className="focus:ring-blue-500 focus:border-blue-500"
                 />
               </div>
-
-              {/* Job Description Input */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
                   Job Description / Tech Stack
@@ -239,8 +179,6 @@ const AddNewInterview = () => {
                   className="focus:ring-blue-500 focus:border-blue-500 min-h-[100px]"
                 />
               </div>
-
-              {/* Years of Experience Input */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
                   Years of Experience
@@ -249,18 +187,16 @@ const AddNewInterview = () => {
                   type="number"
                   value={jobExperience}
                   placeholder="5"
-                  max="50"
+                  max={50}
                   required
                   onChange={(e) => setJobExperience(e.target.value)}
                   className="focus:ring-blue-500 focus:border-blue-500"
                 />
               </div>
-              
               <div className="p-3 bg-amber-50 border border-amber-100 rounded-lg text-sm text-amber-700 flex items-start">
                 <Star className="h-4 w-4 text-amber-500 mr-2 mt-0.5" />
-                <p>We'll generate tailored interview questions based on your job position, description, and experience level.</p>
+                <p>We will generate tailored interview questions based on your job position, description, and experience level.</p>
               </div>
-
               <div className="flex space-x-3 pt-3">
                 <button 
                   type="button"
@@ -269,7 +205,6 @@ const AddNewInterview = () => {
                 >
                   Back
                 </button>
-                
                 <button 
                   type="submit"
                   disabled={loading}
@@ -293,4 +228,3 @@ const AddNewInterview = () => {
   )
 }
 
-export default AddNewInterview;

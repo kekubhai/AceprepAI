@@ -1,13 +1,14 @@
 
 "use client"
-import { MockInterview } from '@/utils/schema';
-import { db } from '@/utils/db';
-import { eq } from 'drizzle-orm';
 import { ArrowLeft, ArrowRight, Mic, MicOff, PauseCircle, PlayCircle, RefreshCcw, Zap } from 'lucide-react';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 
+
 function InterviewPage({ params }) {
+  const togglePlayback = () => {
+    setIsPlaying(!isPlaying);
+  };
   const [interviewData, setInterviewData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [questions, setQuestions] = useState([]);
@@ -18,40 +19,38 @@ function InterviewPage({ params }) {
   const [isPlaying, setIsPlaying] = useState(false);
 
   useEffect(() => {
-    GetInterviewDetails();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  const GetInterviewDetails = async () => {
-    try {
-      const result = await db.select().from(MockInterview)
-        .where(eq(MockInterview.mockId, params.interviewid));
-      
-      if (result.length > 0) {
-        setInterviewData(result[0]);
-        
-        // Parse the JSON response to get questions
+    const fetchInterviewDetails = async () => {
+      try {
+        const res = await fetch(`/api/interview/${params.interviewid}`);
+        if (!res.ok) throw new Error('Failed to fetch interview');
+        const result = await res.json();
+        setInterviewData(result);
+        // Parse questions field robustly
         try {
-          const parsedData = JSON.parse(result[0].jsonMockResp);
+          let parsedData = result.questions;
+          if (typeof parsedData === 'string') {
+            parsedData = JSON.parse(parsedData);
+          }
           if (Array.isArray(parsedData)) {
             setQuestions(parsedData);
-          } else if (parsedData.questions && Array.isArray(parsedData.questions)) {
+          } else if (parsedData && Array.isArray(parsedData.questions)) {
             setQuestions(parsedData.questions);
           }
         } catch (jsonError) {
-          console.error('Error parsing JSON:', jsonError);
+          console.error('Error parsing questions JSON:', jsonError);
         }
+      } catch (error) {
+        console.error('Error fetching interview details:', error);
+      } finally {
+        setLoading(false);
       }
-    } catch (error) {
-      console.error('Error fetching interview details:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
+    };
+    fetchInterviewDetails();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const toggleVoiceRecording = () => {
     setIsRecording(!isRecording);
-    
     // Simulate voice input (this would be replaced with actual Web Speech API)
     if (!isRecording) {
       setTimeout(() => {
@@ -59,11 +58,6 @@ function InterviewPage({ params }) {
       }, 3000);
     }
   };
-
-  const togglePlayback = () => {
-    setIsPlaying(!isPlaying);
-  };
-
   const nextQuestion = () => {
     if (currentQuestionIndex < questions.length - 1) {
       setCurrentQuestionIndex(currentQuestionIndex + 1);

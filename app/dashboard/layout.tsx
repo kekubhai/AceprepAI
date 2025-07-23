@@ -1,8 +1,12 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import Sidebar from './_components/Sidebar';
 import Header from './_components/Header';
 
-const DashBoardLayout = ({children}) => {
+interface DashBoardLayoutProps {
+  children: ReactNode;
+}
+
+const DashBoardLayout: React.FC<DashBoardLayoutProps> = ({children}) => {
   return (
     <div className='flex h-screen bg-gray-50'>
       <Sidebar />
@@ -13,7 +17,7 @@ const DashBoardLayout = ({children}) => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default DashBoardLayout
+export default DashBoardLayout;

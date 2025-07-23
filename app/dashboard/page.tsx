@@ -1,7 +1,7 @@
 "use client"
 
 import React from 'react';
-import DashboardHeader from './_components/DashboardHeader';
+import DashboardHeader from './_components/DashboardHeader'; // No change
 import StatsCards from './_components/StatsCards';
 import NewInterviewCard from './_components/NewInterviewCard';
 import RecentInterviewsList from './_components/RecentInterviewsList';
@@ -10,16 +10,13 @@ import SkillsAssessment from './_components/SkillsAssessment';
 import { useUser } from '@clerk/nextjs';
 import { Sparkles } from 'lucide-react';
 
-const Dashboard = () => {
+const Dashboard: React.FC = () => {
   const { user, isLoaded } = useUser();
   const firstName = isLoaded ? (user?.firstName || 'there') : 'there';
 
   return (
     <div className="space-y-8">
-      <DashboardHeader 
-        title={`Welcome back, ${firstName}!`}
-        subtitle="Monitor your progress and practice for your next interview"
-      />
+      <DashboardHeader userName={firstName} />
       
       <StatsCards />
       
@@ -49,7 +46,7 @@ const Dashboard = () => {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         <SkillsAssessment />
         <div className="space-y-6">
-          <VoiceInput />
+          <VoiceInput onTranscriptChange={() => {}} />
           
           <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
             <h3 className="text-lg font-semibold text-gray-900 mb-4">Upcoming Interview</h3>

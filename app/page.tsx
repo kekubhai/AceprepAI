@@ -1,14 +1,13 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import Header from '@/components/Header'
-import Hero from '@/components/Hero'
-import Features from '@/components/Features'
-import Testimonials from '@/components/Testimonials'
-import Pricing from '@/components/Pricing'
-import Contact from '@/components/Contact'
-import Footer from '@/components/Footer'
-import BackgroundDecoration from '@/components/BackgroundDec'
+import Hero from '../components/Hero'
+import Features from '../components/Features'
+import Testimonials from '../components/Testimonials'
+import Pricing from '../components/Pricing'
+import Contact from '../components/Contact'
+import Header from './dashboard/_components/Header'
+import BackgroundDecoration from '../components/BackgroundDec'
 
 export default function Home() {
   const [isLoaded, setIsLoaded] = useState(false)
@@ -26,7 +25,7 @@ export default function Home() {
       <Testimonials />
       <Pricing />
       <Contact />
-      <Footer />
+      
     </main>
   )
 }

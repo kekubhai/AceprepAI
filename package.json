@@ -26,6 +26,7 @@
     "moment": "^2.30.1",
     "motion": "^11.15.0",
     "next": "14.2.8",
+    "postgres": "^3.4.7",
     "react": "^18",
     "react-dom": "^18",
     "tailwind-merge": "^2.5.2",
