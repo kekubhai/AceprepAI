@@ -1,10 +1,15 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, RefObject } from 'react'
 
-export function useSlideIn(options = {}) {
-  const [isVisible, setIsVisible] = useState(false)
-  const ref = useRef(null)
+/**
+ * Custom hook for slide-in animations using Intersection Observer
+ * @param options - Intersection Observer options
+ * @returns A tuple containing the ref object and visibility state
+ */
+export function useSlideIn(options: IntersectionObserverInit = {}): [RefObject<HTMLElement>, boolean] {
+  const [isVisible, setIsVisible] = useState<boolean>(false)
+  const ref = useRef<HTMLElement>(null)
 
   useEffect(() => {
     const currentRef = ref.current

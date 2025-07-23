@@ -27,7 +27,7 @@
     ".next/types/**/*.ts",
     "**/*.ts",
     "**/*.tsx"
-, "components/BackgroundDec.js", "app/layout.js", "components/Features.js"  ],
+, "components/BackgroundDec.js", "app/layout.tsx", "components/Features.js"  ],
   "exclude": [
     "node_modules"
   ]

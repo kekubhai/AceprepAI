@@ -1,13 +1,13 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import Hero from '../components/Hero'
 import Features from '../components/Features'
 import Testimonials from '../components/Testimonials'
 import Pricing from '../components/Pricing'
 import Contact from '../components/Contact'
 import Header from './dashboard/_components/Header'
 import BackgroundDecoration from '../components/BackgroundDec'
+import Hero from '../components/Hero'
 
 export default function Home() {
   const [isLoaded, setIsLoaded] = useState(false)
