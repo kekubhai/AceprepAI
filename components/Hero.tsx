@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 
-import { useSlideIn } from "../app/hooks/useSlideIn";
+import { useSlideIn } from '../app/hooks/useSlideIn';
 import { ArrowRight, Play, Star } from 'lucide-react';
 
 import Link from 'next/link';
