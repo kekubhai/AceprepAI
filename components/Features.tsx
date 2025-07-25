@@ -32,29 +32,29 @@ export default function Features() {
         <div className="container mx-auto px-4">
           <div className="text-center mb-14">
             <h2 className="text-4xl md:text-5xl font-extrabold mb-4 text-gray-900 tracking-tight">Platform Features</h2>
-            <p className="text-lg text-gray-500 max-w-2xl mx-auto">Everything you need to ace your next interview, with a beautiful, modern, and light UI.</p>
+            <p className="text-lg text-gray-500 max-w-2xl mx-auto">Everything you need to ace your next interview, powered by beautiful AI and a light, modern UI.</p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-            <div className="bg-white rounded-3xl shadow-lg border border-blue-100 p-10 flex flex-col items-center hover:shadow-xl transition-shadow">
-              <div className="bg-blue-100 text-blue-600 rounded-full p-4 mb-6">
-                <Sparkles className="w-8 h-8" />
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+            <div className="bg-white rounded-3xl shadow-xl border border-blue-100 p-12 flex flex-col items-center hover:shadow-2xl transition-all duration-300 group">
+              <div className="bg-blue-100 text-blue-600 rounded-full p-5 mb-7 group-hover:scale-110 transition-transform">
+                <Sparkles className="w-10 h-10 animate-spin-slow" />
               </div>
-              <h3 className="text-xl font-semibold mb-2 text-gray-900">AI-Powered Mock Interviews</h3>
-              <p className="text-gray-600 text-center">Practice with realistic, AI-generated interview questions tailored to your role and experience.</p>
+              <h3 className="text-2xl font-semibold mb-3 text-gray-900">AI-Powered Mock Interviews</h3>
+              <p className="text-gray-600 text-center text-lg">Practice with realistic, AI-generated interview questions tailored to your role and experience.</p>
             </div>
-            <div className="bg-white rounded-3xl shadow-lg border border-purple-100 p-10 flex flex-col items-center hover:shadow-xl transition-shadow">
-              <div className="bg-purple-100 text-purple-600 rounded-full p-4 mb-6">
-                <MessageCircle className="w-8 h-8" />
+            <div className="bg-white rounded-3xl shadow-xl border border-purple-100 p-12 flex flex-col items-center hover:shadow-2xl transition-all duration-300 group">
+              <div className="bg-purple-100 text-purple-600 rounded-full p-5 mb-7 group-hover:scale-110 transition-transform">
+                <MessageCircle className="w-10 h-10 animate-bounce" />
               </div>
-              <h3 className="text-xl font-semibold mb-2 text-gray-900">Real-Time Feedback</h3>
-              <p className="text-gray-600 text-center">Get instant, actionable feedback on your answers, communication, and confidence.</p>
+              <h3 className="text-2xl font-semibold mb-3 text-gray-900">Real-Time Feedback</h3>
+              <p className="text-gray-600 text-center text-lg">Get instant, actionable feedback on your answers, communication, and confidence.</p>
             </div>
-            <div className="bg-white rounded-3xl shadow-lg border border-pink-100 p-10 flex flex-col items-center hover:shadow-xl transition-shadow">
-              <div className="bg-pink-100 text-pink-600 rounded-full p-4 mb-6">
-                <UserCheck className="w-8 h-8" />
+            <div className="bg-white rounded-3xl shadow-xl border border-pink-100 p-12 flex flex-col items-center hover:shadow-2xl transition-all duration-300 group">
+              <div className="bg-pink-100 text-pink-600 rounded-full p-5 mb-7 group-hover:scale-110 transition-transform">
+                <UserCheck className="w-10 h-10 animate-pulse" />
               </div>
-              <h3 className="text-xl font-semibold mb-2 text-gray-900">Personalized Coaching</h3>
-              <p className="text-gray-600 text-center">Receive tips and resources to improve your skills and land your dream job.</p>
+              <h3 className="text-2xl font-semibold mb-3 text-gray-900">Personalized Coaching</h3>
+              <p className="text-gray-600 text-center text-lg">Receive tips and resources to improve your skills and land your dream job.</p>
             </div>
           </div>
         </div>

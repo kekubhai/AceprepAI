@@ -32,7 +32,16 @@ export default function Hero() {
       className={`min-h-screen flex items-center justify-center relative overflow-hidden py-20 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
     >
       {/* Modern gradient background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50"></div>
+      <div className="absolute inset-0 bg-gradient-to-br from-white via-blue-50 to-purple-50"></div>
+
+      {/* Subtle AI accent: glowing circuit icon */}
+      <div className="absolute top-10 right-10 z-0">
+        <svg width="60" height="60" className="opacity-30 animate-pulse" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="30" cy="30" r="28" stroke="#a5b4fc" strokeWidth="3" />
+          <circle cx="30" cy="30" r="18" stroke="#f0abfc" strokeWidth="2" />
+          <circle cx="30" cy="30" r="8" fill="#a5b4fc" fillOpacity="0.3" />
+        </svg>
+      </div>
 
       {/* Floating elements */}
       <div className="absolute top-20 left-10 w-20 h-20 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full opacity-20 animate-pulse"></div>
