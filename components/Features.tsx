@@ -1,5 +1,8 @@
 import React from "react";
 import { Sparkles, MessageCircle, UserCheck } from "lucide-react";
+import Image from "next/image";
+import { Box } from "lucide-react";
+import { LucideIcon } from "lucide-react";
 
 export default function Features() {
   return (
@@ -19,7 +22,7 @@ export default function Features() {
             </a>
           </div>
           <div className="flex-1 flex justify-center md:justify-end">
-            <img src="/logo.svg" alt="AcePrep Illustration" className="w-80 h-80 object-contain drop-shadow-xl rounded-3xl bg-gradient-to-br from-blue-100 via-white to-purple-100 p-6" />
+            <Image src="/logo.svg" alt="AcePrep Illustration" className="w-80 h-80 object-contain drop-shadow-xl rounded-3xl bg-gradient-to-br from-blue-100 via-white to-purple-100 p-6" width={80} height={80} />
           </div>
         </div>
       </section>
@@ -89,15 +92,7 @@ export default function Features() {
 
       {/* Secondary CTA Section */}
       <section className="py-20">
-        <div className="container mx-auto px-4 text-center">
-          <div className="inline-block bg-gradient-to-r from-blue-500 to-purple-500 rounded-full px-8 py-6 shadow-xl">
-            <h3 className="text-2xl md:text-3xl font-bold text-white mb-2">Ready to get started?</h3>
-            <p className="text-lg text-blue-100 mb-4">Join AcePrep and unlock your full potential today.</p>
-            <a href="/sign-up" className="inline-block px-8 py-4 rounded-full bg-white text-blue-700 font-semibold text-lg shadow hover:bg-blue-50 transition-all">
-              Start Free Trial
-            </a>
-          </div>
-        </div>
+        
       </section>
     </main>
   );
