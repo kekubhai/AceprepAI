@@ -1,7 +1,11 @@
 import React from "react";
 import Link from "next/link";
+import { useUser } from "@clerk/nextjs";
+import { Button } from "./ui/button";
 
 export default function Header() {
+
+  const { isSignedIn } = useUser()
   return (
     <header className="w-full py-4 bg-white/95 backdrop-blur-lg border-b border-gray-100 shadow-sm sticky top-0 z-50 transition-all duration-300">
       <div className="container mx-auto px-6 flex items-center justify-between">
@@ -30,22 +34,35 @@ export default function Header() {
             </Link>
           ))}
         </nav>
+              {isSignedIn ? (
+                <div className="flex items-center gap-3">
+                  <Link
+                    href="/dashboard"
+                    className="px-4 py-2 text-gray-700 hover:text-indigo-600 font-medium text-[15px] transition-colors"
+                  >
+                    <Button className="bg-blue-200 text-black p-3  " variant="outline">Dashboard</Button>
+                  </Link>
+                </div>
+              ) : (
+                <div className="flex items-center gap-3">
+                  <Link
+                    href="/sign-in"
+                    className="px-4 py-2 text-gray-700 hover:text-indigo-600 font-medium text-[15px] transition-colors"
+                  >
+                    Sign in
+                  </Link>
+                  <Link
+                    href="/sign-up"
+                    className="px-4 py-2 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-medium text-[15px] rounded-lg shadow-sm hover:shadow-md transition-all hover:opacity-90"
+                  >
+                    Get Started
+                  </Link>
+                </div>
+              )}
 
-        <div className="flex items-center gap-3">
-          <Link
-            href="/login"
-            className="px-4 py-2 text-gray-700 hover:text-indigo-600 font-medium text-[15px] transition-colors"
-          >
-            Sign in
-          </Link>
-          <Link
-            href="/signup"
-            className="px-4 py-2 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-medium text-[15px] rounded-lg shadow-sm hover:shadow-md transition-all hover:opacity-90"
-          >
-            Get Started
-          </Link>
-        </div>
       </div>
     </header>
+            
+
   );
 }

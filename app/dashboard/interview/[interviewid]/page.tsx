@@ -21,7 +21,7 @@ function InterviewPage({ params }) {
   useEffect(() => {
     const fetchInterviewDetails = async () => {
       try {
-        const res = await fetch(`/api/interview/${params.interviewid}`);
+        const res = await fetch(`../api/interview/${params.interviewid}`);
         if (!res.ok) throw new Error('Failed to fetch interview');
         const result = await res.json();
         setInterviewData(result);
