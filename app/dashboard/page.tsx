@@ -9,37 +9,59 @@ import VoiceInput from './_components/VoiceInput';
 import SkillsAssessment from './_components/SkillsAssessment';
 import { useUser } from '@clerk/nextjs';
 import { Sparkles } from 'lucide-react';
+import AchievementsFeed from './_components/Achievements';
 
 const Dashboard: React.FC = () => {
   const { user, isLoaded } = useUser();
   const firstName = isLoaded ? (user?.firstName || 'there') : 'there';
-
+    const achievementsData = [
+    {
+      id: 1,
+      type: "milestone",
+      title: "50 Sessions Completed",
+      description: "Congratulations on completing your 50th interview session! Your dedication is paying off.",
+      timestamp: new Date(Date.now() - 2 * 60 * 60 * 1000),
+      points: 50
+    },
+    {
+      id: 2,
+      type: "improvement",
+      title: "Technical Score Improved",
+      description: "Your technical interview score increased by 15% this week. Keep up the excellent work!",
+      timestamp: new Date(Date.now() - 6 * 60 * 60 * 1000),
+      points: 25
+    },
+    {
+      id: 3,
+      type: "streak",
+      title: "7-Day Practice Streak",
+      description: "You\'ve maintained consistent practice for 7 consecutive days. Consistency is key to success!",
+      timestamp: new Date(Date.now() - 12 * 60 * 60 * 1000),
+      points: 30
+    },
+    {
+      id: 4,
+      type: "skill",
+      title: "Communication Mastery",
+      description: "You've achieved 80%+ scores in communication for 5 consecutive sessions.",
+      timestamp: new Date(Date.now() - 24 * 60 * 60 * 1000),
+      points: 40
+    }
+  ];
   return (
     <div className="space-y-8">
       <DashboardHeader userName={firstName} />
       
       <StatsCards />
       
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div className="flex gap-8">
         <div className="lg:col-span-2">
-          <RecentInterviewsList />
+          <NewInterviewCard />
         </div>
         <div className="space-y-8">
-          <NewInterviewCard />
+          <RecentInterviewsList/>
           
-          <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl shadow-lg p-6 text-white">
-            <div className="flex items-center space-x-2 mb-3">
-              <Sparkles className="h-5 w-5" />
-              <h3 className="font-semibold">Pro Tip</h3>
-            </div>
-            <p className="text-sm text-white/90 mb-4">
-              Practice makes perfect! Try to complete at least 3 mock interviews per week for best results.
-            </p>
-            <div className="w-full bg-white/20 rounded-full h-1.5 mb-1">
-              <div className="bg-white h-1.5 rounded-full" style={{width: '40%'}}></div>
-            </div>
-            <div className="text-xs text-white/80">2 of 5 weekly goals completed</div>
-          </div>
+          
         </div>
       </div>
       
