@@ -1,8 +1,9 @@
 'use client'
 import Image from 'next/image';
 import React from 'react';
-import { useUser } from '@clerk/nextjs';
+import { SignOutButton, useUser } from '@clerk/nextjs';
 import Link from 'next/link';
+import { Button } from '../../../components/ui/button';
 
 const Sidebar: React.FC = () => {
   const { user, isSignedIn } = useUser();
@@ -48,7 +49,9 @@ const Sidebar: React.FC = () => {
 
       {/* Footer */}
       <div className="p-4 border-t border-gray-100">
-        <a href="/" className="block text-center text-blue-600 hover:underline text-sm">Back to Home</a>
+        <Button variant='destructive' className='w-full'>
+          <SignOutButton />
+        </Button>
       </div>
     </aside>
   );
