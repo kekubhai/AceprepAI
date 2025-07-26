@@ -1,9 +1,12 @@
+'use client'
 import React from "react";
 import Link from "next/link";
 import { useUser } from "@clerk/nextjs";
 import { Button } from "./ui/button";
+import { checkUser } from "../lib/checkUser";
 
-export default function Header() {
+const Header =  () => {
+  const user =  checkUser(); // Only called once per render/request
 
   const { isSignedIn } = useUser()
   return (
@@ -66,3 +69,4 @@ export default function Header() {
 
   );
 }
+export default Header;
