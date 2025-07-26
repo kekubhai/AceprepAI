@@ -1,44 +1,47 @@
-
-"use client"
+"use client";
 import { ArrowLeft, ArrowRight, Mic, MicOff, PauseCircle, PlayCircle, RefreshCcw, Zap } from 'lucide-react';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 
+interface InterviewPageProps {
+  params: { interviewid: string };
+}
 
-function InterviewPage({ params }) {
-  const togglePlayback = () => {
-    setIsPlaying(!isPlaying);
-  };
-  const [interviewData, setInterviewData] = useState(null);
+interface Question {
+  question: string;
+  answer?: string;
+}
+
+function InterviewPage({ params }: InterviewPageProps) {
+  const [interviewData, setInterviewData] = useState<any>(null);
   const [loading, setLoading] = useState(true);
-  const [questions, setQuestions] = useState([]);
+  const [questions, setQuestions] = useState<Question[]>([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [isRecording, setIsRecording] = useState(false);
   const [userResponse, setUserResponse] = useState('');
-  const [feedback, setFeedback] = useState(null);
+  const [feedback, setFeedback] = useState<any>(null);
   const [isPlaying, setIsPlaying] = useState(false);
+
+  const togglePlayback = () => setIsPlaying(!isPlaying);
 
   useEffect(() => {
     const fetchInterviewDetails = async () => {
       try {
-        const res = await fetch(`../api/interview/${params.interviewid}`);
+        const res = await fetch(`/api/interview/${params.interviewid}`);
         if (!res.ok) throw new Error('Failed to fetch interview');
         const result = await res.json();
         setInterviewData(result);
-        // Parse questions field robustly
-        try {
-          let parsedData = result.questions;
-          if (typeof parsedData === 'string') {
+
+        let parsedData = result.questions;
+        if (typeof parsedData === 'string') {
+          try {
             parsedData = JSON.parse(parsedData);
+          } catch (jsonError) {
+            console.error('Error parsing questions JSON:', jsonError);
+            parsedData = [];
           }
-          if (Array.isArray(parsedData)) {
-            setQuestions(parsedData);
-          } else if (parsedData && Array.isArray(parsedData.questions)) {
-            setQuestions(parsedData.questions);
-          }
-        } catch (jsonError) {
-          console.error('Error parsing questions JSON:', jsonError);
         }
+        setQuestions(Array.isArray(parsedData) ? parsedData : parsedData?.questions || []);
       } catch (error) {
         console.error('Error fetching interview details:', error);
       } finally {
@@ -47,17 +50,18 @@ function InterviewPage({ params }) {
     };
     fetchInterviewDetails();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [params.interviewid]);
 
   const toggleVoiceRecording = () => {
     setIsRecording(!isRecording);
-    // Simulate voice input (this would be replaced with actual Web Speech API)
+    // Simulate voice input (replace with actual Web Speech API)
     if (!isRecording) {
       setTimeout(() => {
         setUserResponse('In my previous role at XYZ Corp, I led a project to redesign our customer dashboard that faced significant technical challenges. The main issues included...');
       }, 3000);
     }
   };
+
   const nextQuestion = () => {
     if (currentQuestionIndex < questions.length - 1) {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
@@ -75,7 +79,6 @@ function InterviewPage({ params }) {
   };
 
   const provideFeedback = () => {
-    // Simulate AI feedback generation
     setFeedback({
       score: 85,
       strengths: [
@@ -108,13 +111,11 @@ function InterviewPage({ params }) {
           <ArrowLeft className="w-4 h-4 mr-1" />
           Back to Dashboard
         </Link>
-        
         <div className="flex flex-col md:flex-row md:items-center justify-between">
           <div>
             <h1 className="text-3xl font-bold text-gray-900 mb-2">{interviewData?.jobPosition}</h1>
             <p className="text-gray-600">{interviewData?.jobDesc}</p>
           </div>
-          
           <div className="mt-4 md:mt-0 flex items-center space-x-2">
             <span className="text-sm bg-gray-100 text-gray-600 px-3 py-1 rounded-full">
               {interviewData?.jobExperience} years exp.
@@ -125,7 +126,6 @@ function InterviewPage({ params }) {
           </div>
         </div>
       </div>
-      
       {/* Main Content */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Question and Answer Section */}
@@ -137,13 +137,12 @@ function InterviewPage({ params }) {
               <span className="text-sm text-gray-500">Question {currentQuestionIndex + 1} of {questions.length}</span>
             </div>
             <div className="w-full bg-gray-200 rounded-full h-2.5">
-              <div 
-                className="bg-gradient-to-r from-blue-500 to-purple-600 h-2.5 rounded-full" 
-                style={{width: `${((currentQuestionIndex + 1) / questions.length) * 100}%`}}
+              <div
+                className="bg-gradient-to-r from-blue-500 to-purple-600 h-2.5 rounded-full"
+                style={{ width: `${((currentQuestionIndex + 1) / questions.length) * 100}%` }}
               ></div>
             </div>
           </div>
-
           {/* Current Question */}
           <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
             <div className="flex items-center space-x-3 mb-4">
@@ -152,22 +151,19 @@ function InterviewPage({ params }) {
               </div>
               <h3 className="text-lg font-semibold text-gray-900">Question {currentQuestionIndex + 1}</h3>
             </div>
-            
             <p className="text-gray-700 mb-6">
               {currentQuestion ? currentQuestion.question : 'No question available'}
             </p>
-            
             <div className="flex space-x-4">
-              <button 
+              <button
                 onClick={togglePlayback}
                 className="flex items-center space-x-2 px-4 py-2 bg-blue-100 text-blue-600 rounded-lg hover:bg-blue-200 transition-colors"
               >
                 {isPlaying ? <PauseCircle className="w-5 h-5" /> : <PlayCircle className="w-5 h-5" />}
                 <span>{isPlaying ? 'Pause' : 'Listen'}</span>
               </button>
-              
-              <button 
-                onClick={prevQuestion} 
+              <button
+                onClick={prevQuestion}
                 disabled={currentQuestionIndex === 0}
                 className={`px-4 py-2 rounded-lg border flex items-center space-x-2 ${
                   currentQuestionIndex === 0
@@ -178,10 +174,9 @@ function InterviewPage({ params }) {
                 <ArrowLeft className="w-4 h-4" />
                 <span>Previous</span>
               </button>
-              
-              <button 
+              <button
                 onClick={nextQuestion}
-                disabled={currentQuestionIndex === questions.length - 1} 
+                disabled={currentQuestionIndex === questions.length - 1}
                 className={`px-4 py-2 rounded-lg border flex items-center space-x-2 ${
                   currentQuestionIndex === questions.length - 1
                     ? 'border-gray-200 text-gray-400 cursor-not-allowed'
@@ -193,18 +188,15 @@ function InterviewPage({ params }) {
               </button>
             </div>
           </div>
-
           {/* User Response */}
           <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
             <div className="flex justify-between items-center mb-4">
               <h3 className="text-lg font-semibold text-gray-900">Your Response</h3>
-              
               <div className="flex items-center space-x-2">
                 <span className={`flex h-2.5 w-2.5 rounded-full ${isRecording ? 'bg-red-500 animate-pulse' : 'bg-gray-300'}`}></span>
                 <span className="text-sm text-gray-500">{isRecording ? 'Recording...' : 'Not recording'}</span>
               </div>
             </div>
-            
             <div className="bg-gray-50 rounded-lg border border-gray-200 p-4 min-h-[120px] mb-4">
               {userResponse ? (
                 <p className="text-gray-700">{userResponse}</p>
@@ -212,7 +204,6 @@ function InterviewPage({ params }) {
                 <p className="text-gray-400 italic">Start recording or type your answer here...</p>
               )}
             </div>
-            
             <div className="flex justify-between">
               <button
                 onClick={toggleVoiceRecording}
@@ -225,7 +216,6 @@ function InterviewPage({ params }) {
                 {isRecording ? <MicOff className="w-5 h-5" /> : <Mic className="w-5 h-5" />}
                 <span>{isRecording ? 'Stop Recording' : 'Start Recording'}</span>
               </button>
-              
               <button
                 onClick={provideFeedback}
                 disabled={!userResponse}
@@ -239,7 +229,6 @@ function InterviewPage({ params }) {
               </button>
             </div>
           </div>
-
           {/* AI Feedback */}
           {feedback && (
             <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
@@ -248,15 +237,12 @@ function InterviewPage({ params }) {
                   <Zap className="w-5 h-5 text-green-600" />
                 </div>
                 <h3 className="text-lg font-semibold text-gray-900">AI Feedback</h3>
-                
                 <div className="ml-auto flex items-center space-x-1">
                   <span className="text-2xl font-bold text-gray-900">{feedback.score}</span>
                   <span className="text-gray-500">/100</span>
                 </div>
               </div>
-              
               <p className="text-gray-700 mb-6">{feedback.summary}</p>
-              
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <h4 className="font-semibold text-gray-900 mb-3 flex items-center">
@@ -264,7 +250,7 @@ function InterviewPage({ params }) {
                     Strengths
                   </h4>
                   <ul className="space-y-2 text-gray-700">
-                    {feedback.strengths.map((item, index) => (
+                    {feedback.strengths.map((item: string, index: number) => (
                       <li key={index} className="flex items-start">
                         <span className="text-green-500 mr-2">+</span>
                         {item}
@@ -272,14 +258,13 @@ function InterviewPage({ params }) {
                     ))}
                   </ul>
                 </div>
-                
                 <div>
                   <h4 className="font-semibold text-gray-900 mb-3 flex items-center">
                     <span className="w-2 h-2 bg-orange-500 rounded-full mr-2"></span>
                     Areas for Improvement
                   </h4>
                   <ul className="space-y-2 text-gray-700">
-                    {feedback.improvements.map((item, index) => (
+                    {feedback.improvements.map((item: string, index: number) => (
                       <li key={index} className="flex items-start">
                         <span className="text-orange-500 mr-2">△</span>
                         {item}
@@ -291,7 +276,6 @@ function InterviewPage({ params }) {
             </div>
           )}
         </div>
-
         {/* Sidebar */}
         <div className="space-y-6">
           {/* Sample Answer */}
@@ -304,7 +288,6 @@ function InterviewPage({ params }) {
               This is a sample answer provided by our AI to help you understand the key points to address in your response.
             </div>
           </div>
-          
           {/* Tips */}
           <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
             <h3 className="text-lg font-semibold text-gray-900 mb-4">Interview Tips</h3>
@@ -327,7 +310,6 @@ function InterviewPage({ params }) {
               </li>
             </ul>
           </div>
-          
           {/* Reset Interview */}
           <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 text-center">
             <button className="flex items-center justify-center space-x-2 w-full px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors">
@@ -341,4 +323,4 @@ function InterviewPage({ params }) {
   );
 }
 
-export default InterviewPage
+export default InterviewPage;

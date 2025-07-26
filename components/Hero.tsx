@@ -8,7 +8,7 @@ import { useUser } from "@clerk/nextjs";
 import React from "react";
 
 export default function Hero() {
-  const [ref, isVisible] = useSlideIn(null);
+  const [ref, isVisible] = useSlideIn();
   const { isSignedIn } = useUser();
 
   const avatarUrls = [

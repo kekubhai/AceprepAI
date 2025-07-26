@@ -9,7 +9,7 @@ import { useEffect, useRef, useState, RefObject } from 'react'
  */
 export function useSlideIn(options: IntersectionObserverInit = {}): [RefObject<HTMLElement>, boolean] {
   const [isVisible, setIsVisible] = useState<boolean>(false)
-  const ref = useRef<HTMLElement>(null)
+  const ref = useRef<HTMLElement>(null!)
 
   useEffect(() => {
     const currentRef = ref.current

@@ -68,7 +68,7 @@ const Dashboard: React.FC = () => {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         <SkillsAssessment />
         <div className="space-y-6">
-          <VoiceInput onTranscriptChange={() => {}} />
+          {/* <VoiceInput onTranscriptChange={() => {}} /> */}
           
           <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
             <h3 className="text-lg font-semibold text-gray-900 mb-4">Upcoming Interview</h3>

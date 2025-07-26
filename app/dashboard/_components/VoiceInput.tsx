@@ -18,7 +18,7 @@ const VoiceToText: React.FC = () => {
   if (!browserSupportsSpeechRecognition) {
     return (
       <div className="p-4 bg-red-50 text-red-700 rounded">
-        <span>Browser doesn't support speech recognition.</span>
+        <span>Browser doesnot support speech recognition.</span>
       </div>
     );
   }

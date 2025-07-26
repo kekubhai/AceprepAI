@@ -20,14 +20,19 @@
       {
         "name": "next"
       }
-    ]
+    ],
+    "strictNullChecks": true
   },
   "include": [
     "next-env.d.ts",
     ".next/types/**/*.ts",
     "**/*.ts",
-    "**/*.tsx"
-, "components/BackgroundDec.js", "app/layout.tsx", "components/Features.js", "app/dashboard/_components/Achievements.tsx"  ],
+    "**/*.tsx",
+    "components/BackgroundDec.js",
+    "app/layout.tsx",
+    "components/Features.js",
+    "app/dashboard/_components/Achievements.tsx"
+  ],
   "exclude": [
     "node_modules"
   ]
