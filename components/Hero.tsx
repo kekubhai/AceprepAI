@@ -5,11 +5,16 @@ import { ArrowRight, Play, Star } from 'lucide-react';
 
 import Link from 'next/link';
 import { useUser } from "@clerk/nextjs";
-import React from "react";
+
+import React, { useState } from "react";
+import dynamic from "next/dynamic";
+// Dynamically import the signup component to avoid SSR issues
+const LandingInterviewSignup = dynamic(() => import("./LandingInterviewSignup"), { ssr: false });
 
 export default function Hero() {
   const [ref, isVisible] = useSlideIn();
   const { isSignedIn } = useUser();
+  const [openSignup, setOpenSignup] = useState(false);
 
   const avatarUrls = [
     {
@@ -75,7 +80,31 @@ export default function Hero() {
             </div>
 
             {/* CTA Buttons */}
+
             <div className="flex flex-col sm:flex-row gap-4">
+              <>
+                <button
+                  className="px-8 py-4 text-lg font-semibold bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl hover:opacity-90 transition-all"
+                  onClick={() => setOpenSignup(true)}
+                >
+                  Try your free trial
+                </button>
+                {/* Modal for LandingInterviewSignup */}
+                {openSignup && (
+                  <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40">
+                    <div className="relative w-full max-w-xl mx-auto">
+                      <button
+                        className="absolute top-2 right-2 z-10 bg-white rounded-full p-2 shadow hover:bg-gray-100"
+                        onClick={() => setOpenSignup(false)}
+                        aria-label="Close"
+                      >
+                        <ArrowRight className="w-5 h-5 text-gray-500 rotate-180" />
+                      </button>
+                      <LandingInterviewSignup requireSignInToAnswer={true} />
+                    </div>
+                  </div>
+                )}
+              </>
               {isSignedIn && (
                 <Link href="/dashboard" passHref>
                   <button className="px-8 py-4 text-lg font-semibold bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl hover:opacity-90 transition-all">
@@ -83,8 +112,6 @@ export default function Hero() {
                   </button>
                 </Link>
               )}
-  
-              
               <Link href="/demo" passHref>
                 <button className="inline-flex items-center px-8 py-4 text-lg font-semibold text-gray-700 bg-white border-2 border-gray-200 rounded-xl hover:border-gray-300 transition-all duration-200 hover:scale-105">
                   <Play className="w-5 h-5 mr-2" />
