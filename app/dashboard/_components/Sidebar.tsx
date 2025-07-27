@@ -41,7 +41,7 @@ const Sidebar: React.FC = () => {
           <li>
             <Link href="/dashboard/skills" className="flex items-center px-3 py-2 rounded-lg text-gray-700 hover:bg-blue-50 hover:text-blue-700 font-medium transition-colors">
               <span className="mr-3">💡</span>
-              Skills Assessment
+              Skills Bank
             </Link>
           </li>
         </ul>

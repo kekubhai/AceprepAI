@@ -1,0 +1,185 @@
+[
+  {
+    "name": "Google",
+    "sector": "Technology",
+    "description": "Leading technology company focused on internet-related services and products",
+    "skillsByLevel": {
+      "Junior": ["JavaScript", "HTML/CSS", "Git", "React Basics", "Problem Solving"],
+      "Mid": ["TypeScript", "Node.js", "Database Design", "API Development", "Testing"],
+      "Senior": ["System Design", "Microservices", "Cloud Architecture", "Team Leadership", "Performance Optimization"]
+    }
+  },
+  {
+    "name": "Microsoft",
+    "sector": "Technology",
+    "description": "Multinational technology corporation developing software, services, and solutions",
+    "skillsByLevel": {
+      "Junior": ["C#", "JavaScript", "SQL", "Azure Basics", "Version Control"],
+      "Mid": [".NET Framework", "Azure Services", "DevOps", "API Design", "Unit Testing"],
+      "Senior": ["Enterprise Architecture", "Cloud Solutions", "Technical Leadership", "Security", "Scalability"]
+    }
+  },
+  {
+    "name": "Amazon",
+    "sector": "E-commerce/Cloud",
+    "description": "Global e-commerce and cloud computing company",
+    "skillsByLevel": {
+      "Junior": ["Python", "Java", "AWS Basics", "Data Structures", "Algorithms"],
+      "Mid": ["AWS Services", "Distributed Systems", "Database Management", "CI/CD", "Monitoring"],
+      "Senior": ["System Architecture", "AWS Expert", "Performance Tuning", "Team Management", "Innovation"]
+    }
+  },
+  {
+    "name": "Netflix",
+    "sector": "Entertainment/Streaming",
+    "description": "Leading streaming entertainment service with global reach",
+    "skillsByLevel": {
+      "Junior": ["JavaScript", "React", "Python", "Git", "Basic Testing"],
+      "Mid": ["Microservices", "Kafka", "Docker", "Kubernetes", "Data Analytics"],
+      "Senior": ["Distributed Systems", "Machine Learning", "Content Delivery", "Leadership", "Innovation"]
+    }
+  },
+  {
+    "name": "Stripe",
+    "sector": "Fintech",
+    "description": "Financial services and software as a service company",
+    "skillsByLevel": {
+      "Junior": ["Ruby", "JavaScript", "SQL", "API Integration", "Security Basics"],
+      "Mid": ["Payment Systems", "Fraud Detection", "Microservices", "Testing", "Compliance"],
+      "Senior": ["Financial Architecture", "Risk Management", "Global Scaling", "Team Leadership", "Innovation"]
+    }
+  },
+  {
+    "name": "Spotify",
+    "sector": "Music/Technology",
+    "description": "Audio streaming and media services provider",
+    "skillsByLevel": {
+      "Junior": ["Java", "Python", "JavaScript", "Git", "Agile"],
+      "Mid": ["Scala", "Big Data", "Machine Learning", "Microservices", "A/B Testing"],
+      "Senior": ["Data Engineering", "Recommendation Systems", "Platform Architecture", "Leadership", "Product Strategy"]
+    }
+  },
+  {
+    "name": "CRED",
+    "sector": "Fintech",
+    "description": "Fintech unicorn known for engineering excellence.",
+    "skillsByLevel": {
+      "Junior": ["Python", "Django", "React.js", "PostgreSQL", "AWS", "Kafka", "Docker", "Kubernetes", "Problem solving", "Communication"],
+      "Mid": ["Python", "Django", "React.js", "PostgreSQL", "AWS", "Kafka", "Docker", "Kubernetes", "DevOps", "Cloud"],
+      "Senior": ["Python", "Go", "Spring Boot", "Microservices", "AWS/GCP", "Kafka", "Kubernetes", "Leadership", "Architecture"]
+    }
+  },
+  {
+    "name": "PharmEasy",
+    "sector": "HealthTech",
+    "description": "India's leading healthtech platform.",
+    "skillsByLevel": {
+      "Junior": ["JavaScript", "Node.js", "React.js", "MongoDB", "AWS", "CI/CD", "Redis", "Frontend", "Backend"],
+      "Mid": ["Node.js", "React.js", "MongoDB", "AWS", "CI/CD", "Redis", "Cloud", "DevOps"],
+      "Senior": ["Node.js", "React.js", "MongoDB", "AWS", "CI/CD", "Redis", "Data handling"]
+    }
+  },
+  {
+    "name": "Zepto",
+    "sector": "Quick Commerce",
+    "description": "10-minute grocery delivery startup.",
+    "skillsByLevel": {
+      "Junior": ["Java", "Spring Boot", "MySQL", "AWS", "RabbitMQ", "Kafka", "Docker"],
+      "Mid": ["Java", "Spring Boot", "MySQL", "AWS", "RabbitMQ", "Kafka", "Docker", "Cloud"],
+      "Senior": ["Java", "Spring Boot", "MySQL", "AWS", "RabbitMQ", "Kafka", "Docker", "DevOps"]
+    }
+  },
+  {
+    "name": "Sarvam",
+    "sector": "AI - Language Tech",
+    "description": "AI startup building next-gen language models for India.",
+    "skillsByLevel": {
+      "Junior": ["Python", "PyTorch", "TensorFlow", "Vertex AI", "Google AI Studio", "Gemini", "Gemma"],
+      "Mid": ["Python", "PyTorch", "TensorFlow", "Vertex AI", "Google AI Studio", "Gemini", "Gemma", "MLOps", "Cloud"],
+      "Senior": ["Python", "PyTorch", "TensorFlow", "Vertex AI", "Google AI Studio", "Gemini", "Gemma", "MLOps", "Cloud", "Data Engineering"]
+    }
+  },
+  {
+    "name": "Razorpay",
+    "sector": "Fintech",
+    "description": "Leading payment gateway and fintech platform in India.",
+    "skillsByLevel": {
+      "Junior": ["Java", "Spring Boot", "MySQL", "AWS", "REST APIs", "JavaScript", "React.js"],
+      "Mid": ["Java", "Spring Boot", "MySQL", "AWS", "Microservices", "Kafka", "React.js", "DevOps"],
+      "Senior": ["Java", "Spring Boot", "MySQL", "AWS", "Microservices", "Kafka", "System Design", "Leadership"]
+    }
+  },
+  {
+    "name": "Meesho",
+    "sector": "E-commerce",
+    "description": "Social commerce platform enabling small businesses in India.",
+    "skillsByLevel": {
+      "Junior": ["Python", "Django", "React.js", "PostgreSQL", "AWS", "Redis"],
+      "Mid": ["Python", "Django", "React.js", "PostgreSQL", "AWS", "Redis", "Microservices", "Cloud"],
+      "Senior": ["Python", "Django", "React.js", "PostgreSQL", "AWS", "Redis", "Microservices", "System Design"]
+    }
+  },
+  {
+    "name": "Freshworks",
+    "sector": "SaaS",
+    "description": "Global SaaS company from India providing customer engagement software.",
+    "skillsByLevel": {
+      "Junior": ["Ruby on Rails", "JavaScript", "React.js", "MySQL", "AWS"],
+      "Mid": ["Ruby on Rails", "JavaScript", "React.js", "MySQL", "AWS", "Microservices", "DevOps"],
+      "Senior": ["Ruby on Rails", "JavaScript", "React.js", "MySQL", "AWS", "Microservices", "Architecture", "Leadership"]
+    }
+  },
+  { "name": "Flipkart", "sector": "E-commerce", "description": "India's leading e-commerce marketplace.", "skillsByLevel": { "Junior": ["Java", "Spring Boot", "MySQL", "React.js", "AWS"], "Mid": ["Java", "Spring Boot", "Microservices", "React.js", "AWS", "Kafka"], "Senior": ["Java", "Spring Boot", "Microservices", "AWS", "System Design", "Leadership"] } },
+  { "name": "Ola Cabs", "sector": "Mobility", "description": "India's largest ride-hailing platform.", "skillsByLevel": { "Junior": ["Node.js", "MongoDB", "React.js", "AWS", "Redis"], "Mid": ["Node.js", "MongoDB", "React.js", "AWS", "Microservices"], "Senior": ["Node.js", "MongoDB", "React.js", "AWS", "System Design", "Leadership"] } },
+  { "name": "Swiggy", "sector": "Food Delivery", "description": "India's top food delivery startup.", "skillsByLevel": { "Junior": ["Python", "Django", "React.js", "PostgreSQL", "AWS"], "Mid": ["Python", "Django", "React.js", "PostgreSQL", "AWS", "Microservices"], "Senior": ["Python", "Django", "React.js", "PostgreSQL", "AWS", "System Design", "Leadership"] } },
+  { "name": "Zomato", "sector": "Food Delivery", "description": "Restaurant aggregator and food delivery company.", "skillsByLevel": { "Junior": ["Ruby on Rails", "React.js", "MySQL", "AWS"], "Mid": ["Ruby on Rails", "React.js", "MySQL", "AWS", "Microservices"], "Senior": ["Ruby on Rails", "React.js", "MySQL", "AWS", "System Design", "Leadership"] } },
+  { "name": "Paytm", "sector": "Fintech", "description": "India's leading digital payments platform.", "skillsByLevel": { "Junior": ["Java", "Spring Boot", "MySQL", "React.js", "AWS"], "Mid": ["Java", "Spring Boot", "Microservices", "React.js", "AWS", "Kafka"], "Senior": ["Java", "Spring Boot", "Microservices", "AWS", "System Design", "Leadership"] } },
+  { "name": "Byju's", "sector": "EdTech", "description": "India's largest online learning platform.", "skillsByLevel": { "Junior": ["Python", "Django", "React.js", "PostgreSQL", "AWS"], "Mid": ["Python", "Django", "React.js", "PostgreSQL", "AWS", "Microservices"], "Senior": ["Python", "Django", "React.js", "PostgreSQL", "AWS", "System Design", "Leadership"] } },
+  { "name": "Unacademy", "sector": "EdTech", "description": "Online education platform for competitive exams.", "skillsByLevel": { "Junior": ["Node.js", "MongoDB", "React.js", "AWS"], "Mid": ["Node.js", "MongoDB", "React.js", "AWS", "Microservices"], "Senior": ["Node.js", "MongoDB", "React.js", "AWS", "System Design", "Leadership"] } },
+  { "name": "Dream11", "sector": "Fantasy Sports", "description": "India's biggest fantasy sports platform.", "skillsByLevel": { "Junior": ["Java", "Spring Boot", "React.js", "MySQL", "AWS"], "Mid": ["Java", "Spring Boot", "Microservices", "React.js", "AWS", "Kafka"], "Senior": ["Java", "Spring Boot", "Microservices", "AWS", "System Design", "Leadership"] } },
+  { "name": "Delhivery", "sector": "Logistics", "description": "Logistics and supply chain services company.", "skillsByLevel": { "Junior": ["Python", "Django", "React.js", "PostgreSQL", "AWS"], "Mid": ["Python", "Django", "React.js", "PostgreSQL", "AWS", "Microservices"], "Senior": ["Python", "Django", "React.js", "PostgreSQL", "AWS", "System Design", "Leadership"] } },
+  { "name": "PolicyBazaar", "sector": "Insurtech", "description": "Online insurance aggregator.", "skillsByLevel": { "Junior": ["Java", "Spring Boot", "React.js", "MySQL", "AWS"], "Mid": ["Java", "Spring Boot", "Microservices", "React.js", "AWS", "Kafka"], "Senior": ["Java", "Spring Boot", "Microservices", "AWS", "System Design", "Leadership"] } },
+  { "name": "InMobi", "sector": "AdTech", "description": "Mobile advertising technology company.", "skillsByLevel": { "Junior": ["Java", "Android", "React.js", "AWS"], "Mid": ["Java", "Android", "React.js", "AWS", "Microservices"], "Senior": ["Java", "Android", "React.js", "AWS", "System Design", "Leadership"] } },
+  { "name": "FreshToHome", "sector": "E-commerce", "description": "Online platform for fresh meat and seafood.", "skillsByLevel": { "Junior": ["Python", "Django", "React.js", "PostgreSQL", "AWS"], "Mid": ["Python", "Django", "React.js", "PostgreSQL", "AWS", "Microservices"], "Senior": ["Python", "Django", "React.js", "PostgreSQL", "AWS", "System Design", "Leadership"] } },
+  { "name": "Udaan", "sector": "B2B E-commerce", "description": "B2B trade platform for small businesses.", "skillsByLevel": { "Junior": ["Java", "Spring Boot", "React.js", "MySQL", "AWS"], "Mid": ["Java", "Spring Boot", "Microservices", "React.js", "AWS", "Kafka"], "Senior": ["Java", "Spring Boot", "Microservices", "AWS", "System Design", "Leadership"] } },
+  { "name": "Rivigo", "sector": "Logistics", "description": "Technology-enabled logistics company.", "skillsByLevel": { "Junior": ["Python", "Django", "React.js", "PostgreSQL", "AWS"], "Mid": ["Python", "Django", "React.js", "PostgreSQL", "AWS", "Microservices"], "Senior": ["Python", "Django", "React.js", "PostgreSQL", "AWS", "System Design", "Leadership"] } },
+  { "name": "CureFit", "sector": "HealthTech", "description": "Health and fitness company.", "skillsByLevel": { "Junior": ["Node.js", "MongoDB", "React.js", "AWS"], "Mid": ["Node.js", "MongoDB", "React.js", "AWS", "Microservices"], "Senior": ["Node.js", "MongoDB", "React.js", "AWS", "System Design", "Leadership"] } },
+  { "name": "Bounce", "sector": "Mobility", "description": "Bike rental startup.", "skillsByLevel": { "Junior": ["Java", "Spring Boot", "React.js", "MySQL", "AWS"], "Mid": ["Java", "Spring Boot", "Microservices", "React.js", "AWS", "Kafka"], "Senior": ["Java", "Spring Boot", "Microservices", "AWS", "System Design", "Leadership"] } },
+  { "name": "ShareChat", "sector": "Social Media", "description": "Indian social networking service.", "skillsByLevel": { "Junior": ["Python", "Django", "React.js", "PostgreSQL", "AWS"], "Mid": ["Python", "Django", "React.js", "PostgreSQL", "AWS", "Microservices"], "Senior": ["Python", "Django", "React.js", "PostgreSQL", "AWS", "System Design", "Leadership"] } },
+  { "name": "Mobikwik", "sector": "Fintech", "description": "Digital wallet and online payment system.", "skillsByLevel": { "Junior": ["Java", "Spring Boot", "React.js", "MySQL", "AWS"], "Mid": ["Java", "Spring Boot", "Microservices", "React.js", "AWS", "Kafka"], "Senior": ["Java", "Spring Boot", "Microservices", "AWS", "System Design", "Leadership"] } },
+  { "name": "Pine Labs", "sector": "Fintech", "description": "Merchant platform for payment solutions.", "skillsByLevel": { "Junior": ["Java", "Spring Boot", "React.js", "MySQL", "AWS"], "Mid": ["Java", "Spring Boot", "Microservices", "React.js", "AWS", "Kafka"], "Senior": ["Java", "Spring Boot", "Microservices", "AWS", "System Design", "Leadership"] } },
+  { "name": "Lenskart", "sector": "E-commerce", "description": "Online eyewear retailer.", "skillsByLevel": { "Junior": ["Python", "Django", "React.js", "PostgreSQL", "AWS"], "Mid": ["Python", "Django", "React.js", "PostgreSQL", "AWS", "Microservices"], "Senior": ["Python", "Django", "React.js", "PostgreSQL", "AWS", "System Design", "Leadership"] } },
+  { "name": "BigBasket", "sector": "E-commerce", "description": "Online grocery delivery service.", "skillsByLevel": { "Junior": ["Java", "Spring Boot", "React.js", "MySQL", "AWS"], "Mid": ["Java", "Spring Boot", "Microservices", "React.js", "AWS", "Kafka"], "Senior": ["Java", "Spring Boot", "Microservices", "AWS", "System Design", "Leadership"] } },
+  { "name": "OYO Rooms", "sector": "Hospitality", "description": "Hotel chain and hospitality company.", "skillsByLevel": { "Junior": ["Python", "Django", "React.js", "PostgreSQL", "AWS"], "Mid": ["Python", "Django", "React.js", "PostgreSQL", "AWS", "Microservices"], "Senior": ["Python", "Django", "React.js", "PostgreSQL", "AWS", "System Design", "Leadership"] } },
+  { "name": "Quikr", "sector": "Classifieds", "description": "Online classifieds platform.", "skillsByLevel": { "Junior": ["Java", "Spring Boot", "React.js", "MySQL", "AWS"], "Mid": ["Java", "Spring Boot", "Microservices", "React.js", "AWS", "Kafka"], "Senior": ["Java", "Spring Boot", "Microservices", "AWS", "System Design", "Leadership"] } },
+  { "name": "Hike", "sector": "Social Media", "description": "Indian instant messaging platform.", "skillsByLevel": { "Junior": ["Python", "Django", "React.js", "PostgreSQL", "AWS"], "Mid": ["Python", "Django", "React.js", "PostgreSQL", "AWS", "Microservices"], "Senior": ["Python", "Django", "React.js", "PostgreSQL", "AWS", "System Design", "Leadership"] } },
+  { "name": "RedBus", "sector": "Travel", "description": "Online bus ticketing platform.", "skillsByLevel": { "Junior": ["Java", "Spring Boot", "React.js", "MySQL", "AWS"], "Mid": ["Java", "Spring Boot", "Microservices", "React.js", "AWS", "Kafka"], "Senior": ["Java", "Spring Boot", "Microservices", "AWS", "System Design", "Leadership"] } },
+  { "name": "BookMyShow", "sector": "Entertainment", "description": "Online ticketing platform for movies and events.", "skillsByLevel": { "Junior": ["Python", "Django", "React.js", "PostgreSQL", "AWS"], "Mid": ["Python", "Django", "React.js", "PostgreSQL", "AWS", "Microservices"], "Senior": ["Python", "Django", "React.js", "PostgreSQL", "AWS", "System Design", "Leadership"] } },
+  { "name": "Urban Company", "sector": "Home Services", "description": "Marketplace for home services.", "skillsByLevel": { "Junior": ["Node.js", "MongoDB", "React.js", "AWS"], "Mid": ["Node.js", "MongoDB", "React.js", "AWS", "Microservices"], "Senior": ["Node.js", "MongoDB", "React.js", "AWS", "System Design", "Leadership"] } },
+  { "name": "Myntra", "sector": "E-commerce", "description": "Fashion e-commerce platform.", "skillsByLevel": { "Junior": ["Java", "Spring Boot", "React.js", "MySQL", "AWS"], "Mid": ["Java", "Spring Boot", "Microservices", "React.js", "AWS", "Kafka"], "Senior": ["Java", "Spring Boot", "Microservices", "AWS", "System Design", "Leadership"] } },
+  { "name": "Tata Consultancy Services (TCS)", "sector": "IT Services", "description": "India's largest IT services company.", "skillsByLevel": { "Junior": ["Java", "Spring", "SQL", "HTML", "CSS", "JavaScript", "Testing"], "Mid": ["Java", "Spring", "SQL", "Angular", "React", "Cloud", "DevOps"], "Senior": ["Java", "Spring", "SQL", "Angular", "React", "Cloud", "DevOps", "Project Management"] } },
+  { "name": "Infosys", "sector": "IT Services", "description": "Global leader in consulting, technology, and outsourcing.", "skillsByLevel": { "Junior": ["Java", "Spring", "SQL", "HTML", "CSS", "JavaScript", "Testing"], "Mid": ["Java", "Spring", "SQL", "Angular", "React", "Cloud", "DevOps"], "Senior": ["Java", "Spring", "SQL", "Angular", "React", "Cloud", "DevOps", "Project Management"] } },
+  { "name": "Wipro", "sector": "IT Services", "description": "Leading global information technology company.", "skillsByLevel": { "Junior": ["Java", "Spring", "SQL", "HTML", "CSS", "JavaScript", "Testing"], "Mid": ["Java", "Spring", "SQL", "Angular", "React", "Cloud", "DevOps"], "Senior": ["Java", "Spring", "SQL", "Angular", "React", "Cloud", "DevOps", "Project Management"] } },
+  { "name": "HCL Technologies", "sector": "IT Services", "description": "Global IT services company.", "skillsByLevel": { "Junior": ["Java", "Spring", "SQL", "HTML", "CSS", "JavaScript", "Testing"], "Mid": ["Java", "Spring", "SQL", "Angular", "React", "Cloud", "DevOps"], "Senior": ["Java", "Spring", "SQL", "Angular", "React", "Cloud", "DevOps", "Project Management"] } },
+  { "name": "Tech Mahindra", "sector": "IT Services", "description": "Provider of digital transformation, consulting, and business reengineering services.", "skillsByLevel": { "Junior": ["Java", "Spring", "SQL", "HTML", "CSS", "JavaScript", "Testing"], "Mid": ["Java", "Spring", "SQL", "Angular", "React", "Cloud", "DevOps"], "Senior": ["Java", "Spring", "SQL", "Angular", "React", "Cloud", "DevOps", "Project Management"] } },
+  { "name": "Capgemini India", "sector": "IT Services", "description": "Global leader in consulting, digital transformation, technology, and engineering services.", "skillsByLevel": { "Junior": ["Java", "Spring", "SQL", "HTML", "CSS", "JavaScript", "Testing"], "Mid": ["Java", "Spring", "SQL", "Angular", "React", "Cloud", "DevOps"], "Senior": ["Java", "Spring", "SQL", "Angular", "React", "Cloud", "DevOps", "Project Management"] } },
+  { "name": "Mindtree", "sector": "IT Services", "description": "Global technology consulting and services company.", "skillsByLevel": { "Junior": ["Java", "Spring", "SQL", "HTML", "CSS", "JavaScript", "Testing"], "Mid": ["Java", "Spring", "SQL", "Angular", "React", "Cloud", "DevOps"], "Senior": ["Java", "Spring", "SQL", "Angular", "React", "Cloud", "DevOps", "Project Management"] } },
+  { "name": "LTI (Larsen & Toubro Infotech)", "sector": "IT Services", "description": "Global IT solutions and services company.", "skillsByLevel": { "Junior": ["Java", "Spring", "SQL", "HTML", "CSS", "JavaScript", "Testing"], "Mid": ["Java", "Spring", "SQL", "Angular", "React", "Cloud", "DevOps"], "Senior": ["Java", "Spring", "SQL", "Angular", "React", "Cloud", "DevOps", "Project Management"] } },
+  { "name": "IBM India", "sector": "MNC", "description": "Global technology and consulting company.", "skillsByLevel": { "Junior": ["Java", "Spring", "SQL", "HTML", "CSS", "JavaScript", "Testing"], "Mid": ["Java", "Spring", "SQL", "Angular", "React", "Cloud", "DevOps"], "Senior": ["Java", "Spring", "SQL", "Angular", "React", "Cloud", "DevOps", "Project Management"] } },
+  { "name": "Accenture India", "sector": "MNC", "description": "Global professional services company with leading capabilities in digital, cloud and security.", "skillsByLevel": { "Junior": ["Java", "Spring", "SQL", "HTML", "CSS", "JavaScript", "Testing"], "Mid": ["Java", "Spring", "SQL", "Angular", "React", "Cloud", "DevOps"], "Senior": ["Java", "Spring", "SQL", "Angular", "React", "Cloud", "DevOps", "Project Management"] } },
+  { "name": "Deloitte India", "sector": "MNC", "description": "Global provider of audit, consulting, financial advisory, risk management, and tax services.", "skillsByLevel": { "Junior": ["Java", "Spring", "SQL", "HTML", "CSS", "JavaScript", "Testing"], "Mid": ["Java", "Spring", "SQL", "Angular", "React", "Cloud", "DevOps"], "Senior": ["Java", "Spring", "SQL", "Angular", "React", "Cloud", "DevOps", "Project Management"] } },
+  { "name": "EY India", "sector": "MNC", "description": "Global leader in assurance, consulting, strategy and transactions, and tax services.", "skillsByLevel": { "Junior": ["Java", "Spring", "SQL", "HTML", "CSS", "JavaScript", "Testing"], "Mid": ["Java", "Spring", "SQL", "Angular", "React", "Cloud", "DevOps"], "Senior": ["Java", "Spring", "SQL", "Angular", "React", "Cloud", "DevOps", "Project Management"] } },
+  { "name": "Amazon India", "sector": "MNC", "description": "Global e-commerce and cloud computing company with a large India presence.", "skillsByLevel": { "Junior": ["Python", "Java", "AWS Basics", "Data Structures", "Algorithms"], "Mid": ["AWS Services", "Distributed Systems", "Database Management", "CI/CD", "Monitoring"], "Senior": ["System Architecture", "AWS Expert", "Performance Tuning", "Team Management", "Innovation"] } },
+  { "name": "Google India", "sector": "MNC", "description": "Global tech giant with a strong India presence.", "skillsByLevel": { "Junior": ["Python", "Java", "C++", "Go", "Cloud", "Distributed Systems", "Algorithms"], "Mid": ["Python", "Java", "C++", "Go", "Cloud", "Distributed Systems", "Algorithms", "System Design"], "Senior": ["Python", "Java", "C++", "Go", "Cloud", "Distributed Systems", "Algorithms", "System Design", "Leadership"] } },
+  { "name": "Microsoft India", "sector": "MNC", "description": "Global technology corporation with a large India R&D presence.", "skillsByLevel": { "Junior": ["C#", "JavaScript", "SQL", "Azure Basics", "Version Control"], "Mid": [".NET Framework", "Azure Services", "DevOps", "API Design", "Unit Testing"], "Senior": ["Enterprise Architecture", "Cloud Solutions", "Technical Leadership", "Security", "Scalability"] } },
+  { "name": "Oracle India", "sector": "MNC", "description": "Global database and cloud technology company.", "skillsByLevel": { "Junior": ["SQL", "PL/SQL", "Java", "Oracle DB", "Cloud Basics"], "Mid": ["Oracle Cloud", "Java", "Database Design", "Performance Tuning", "DevOps"], "Senior": ["Cloud Architecture", "Database Security", "Leadership", "System Design", "Innovation"] } },
+  { "name": "SAP Labs India", "sector": "MNC", "description": "Global leader in enterprise application software.", "skillsByLevel": { "Junior": ["ABAP", "Java", "SQL", "SAP HANA", "Cloud Basics"], "Mid": ["SAP Cloud", "Java", "Database Design", "Performance Tuning", "DevOps"], "Senior": ["Cloud Architecture", "Database Security", "Leadership", "System Design", "Innovation"] } },
+  { "name": "Adobe India", "sector": "MNC", "description": "Global leader in digital media and marketing solutions.", "skillsByLevel": { "Junior": ["JavaScript", "HTML/CSS", "React.js", "Cloud Basics"], "Mid": ["TypeScript", "Node.js", "API Development", "Testing", "Cloud"], "Senior": ["System Design", "Cloud Architecture", "Team Leadership", "Performance Optimization"] } },
+  { "name": "Salesforce India", "sector": "MNC", "description": "Global leader in CRM and cloud solutions.", "skillsByLevel": { "Junior": ["Apex", "JavaScript", "SQL", "Cloud Basics"], "Mid": ["Salesforce Platform", "API Development", "Testing", "Cloud"], "Senior": ["System Design", "Cloud Architecture", "Team Leadership", "Performance Optimization"] } },
+  { "name": "VMware India", "sector": "MNC", "description": "Global leader in cloud infrastructure and digital workspace technology.", "skillsByLevel": { "Junior": ["Java", "Spring", "SQL", "Cloud Basics"], "Mid": ["Cloud Infrastructure", "API Development", "Testing", "DevOps"], "Senior": ["System Design", "Cloud Architecture", "Team Leadership", "Performance Optimization"] } },
+  { "name": "Cisco India", "sector": "MNC", "description": "Global leader in networking and IT.", "skillsByLevel": { "Junior": ["Networking", "Python", "Java", "Cloud Basics"], "Mid": ["Cloud Infrastructure", "API Development", "Testing", "DevOps"], "Senior": ["System Design", "Cloud Architecture", "Team Leadership", "Performance Optimization"] } },
+  { "name": "Intel India", "sector": "MNC", "description": "Global leader in semiconductor manufacturing.", "skillsByLevel": { "Junior": ["C", "C++", "Python", "Linux"], "Mid": ["Embedded Systems", "Performance Tuning", "Testing", "DevOps"], "Senior": ["System Design", "Hardware Architecture", "Team Leadership", "Innovation"] } },
+  { "name": "Nvidia India", "sector": "MNC", "description": "Global leader in GPU and AI computing.", "skillsByLevel": { "Junior": ["C++", "Python", "CUDA", "Linux"], "Mid": ["Deep Learning", "Performance Tuning", "Testing", "DevOps"], "Senior": ["System Design", "AI Architecture", "Team Leadership", "Innovation"] } },
+  { "name": "Samsung R&D India", "sector": "MNC", "description": "Global leader in electronics and digital solutions.", "skillsByLevel": { "Junior": ["C", "C++", "Java", "Android"], "Mid": ["Embedded Systems", "Performance Tuning", "Testing", "DevOps"], "Senior": ["System Design", "Hardware Architecture", "Team Leadership", "Innovation"] } },
+  { "name": "Qualcomm India", "sector": "MNC", "description": "Global leader in wireless technology and semiconductors.", "skillsByLevel": { "Junior": ["C", "C++", "Python", "Linux"], "Mid": ["Embedded Systems", "Performance Tuning", "Testing", "DevOps"], "Senior": ["System Design", "Hardware Architecture", "Team Leadership", "Innovation"] } }
+]
