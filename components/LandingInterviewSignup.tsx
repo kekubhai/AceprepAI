@@ -24,13 +24,12 @@ export default function LandingInterviewSignup({ requireSignInToAnswer }: Landin
   const [questions, setQuestions] = useState<Question[] | null>(null);
   const [error, setError] = useState<string | null>(null);
 
-  // Assume a function to check if user has already signed up (replace with real API call)
+
   const [alreadySignedUp, setAlreadySignedUp] = useState(false);
 
   React.useEffect(() => {
     if (isSignedIn && user) {
-      // TODO: Replace with real API call to check if user already signed up
-      // setAlreadySignedUp(true/false)
+      
     }
   }, [isSignedIn, user]);
 
@@ -73,9 +72,6 @@ export default function LandingInterviewSignup({ requireSignInToAnswer }: Landin
     }
   };
 
-
-  // Only require sign-in if answering questions, not for question generation
-  // If requireSignInToAnswer is true, show sign-in prompt only when user tries to answer
 
   if (alreadySignedUp) {
     return (
