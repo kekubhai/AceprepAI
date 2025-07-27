@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import companiesData from "./companies.json";
-
+import { Button } from "../../../components/ui/button";
 const companies = companiesData as Array<{
   name: string;
   sector: string;

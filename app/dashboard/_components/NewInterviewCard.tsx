@@ -6,7 +6,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } f
 import { Input } from "../../../components/ui/input";
 import { Textarea } from "../../../components/ui/textarea";
 import { Button } from "../../../components/ui/button";
-import { Alert, AlertDescription, AlertTitle } from "../../../components/ui/alert";
+import { Alert, AlertTitle } from "../../../components/ui/alert";
 import { FileUpload } from "../../../components/ui/file-upload";
 
 interface JobTemplate {
@@ -74,13 +74,30 @@ export default function NewInterviewCard() {
     setStep(2);
   };
 
-  const onSubmit = (e: FormEvent) => {
+  const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
+    try {
+      const formData = new FormData();
+      // TODO: Replace with actual userId from auth context
+      formData.append("userId", "demo-user-id");
+      formData.append("jobPosition", jobPosition);
+      formData.append("jobDesc", jobDescription);
+      formData.append("jobExperience", jobExperience);
+      if (file) formData.append("resume", file);
+      const res = await fetch("/api/interview", {
+        method: "POST",
+        body: formData,
+      });
+      if (!res.ok) throw new Error("Failed to create interview");
+      const data = await res.json();
       closeDialog();
-    }, 1500);
+      window.location.href = `/dashboard/interview/${data.id}`;
+    } catch (err) {
+      alert("Failed to create interview. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
