@@ -27,7 +27,6 @@ import { ArrowLeft } from "lucide-react";
 interface Question {
   id: string;
   question: string;
-  type: "general" | "machine-coding";
 }
 
 export default function InterviewPage() {
@@ -114,13 +113,10 @@ export default function InterviewPage() {
           <div className="mb-4">
             <span className="text-sm text-blue-600 font-semibold">Question {currentQuestionIndex + 1} of {questions.length}</span>
             <h2 className="text-lg font-semibold text-gray-900 mt-2 mb-2">{currentQuestion?.question}</h2>
-            {currentQuestion?.type === "machine-coding" && (
-              <span className="inline-block bg-purple-100 text-purple-700 text-xs px-2 py-1 rounded-full mb-2">Machine Coding</span>
-            )}
           </div>
           <textarea
-            className={`w-full border border-gray-200 rounded-lg p-3 min-h-[120px] text-gray-900 focus:ring-blue-500 focus:border-blue-500 ${currentQuestion?.type === "machine-coding" ? "font-mono" : ""}`}
-            placeholder={currentQuestion?.type === "machine-coding" ? "Write your code here..." : "Type your answer here..."}
+            className="w-full border border-gray-200 rounded-lg p-3 min-h-[120px] text-gray-900 focus:ring-blue-500 focus:border-blue-500"
+            placeholder="Type your answer here..."
             value={answers[currentQuestionIndex]}
             onChange={handleAnswerChange}
             disabled={loading}

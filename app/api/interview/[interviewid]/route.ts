@@ -22,7 +22,7 @@ export async function GET(req: NextRequest, { params }: { params: { interviewid:
       jobDesc: interview.questions[0]?.text || "",
       jobExperience: interview.user?.name || "",
       createdAt: interview.createdAt,
-      questions: interview.questions.map(q => ({ question: q.text, answer: q.answer })),
+      questions: interview.questions.map(q => ({ id: q.id, question: q.text })),
     });
   } catch (err: any) {
     return NextResponse.json({ error: err.message || "Server error" }, { status: 500 });
