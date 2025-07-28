@@ -3,8 +3,25 @@ import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 
-// Gemini API setup (client-side fetch)
-const GEMINI_API_KEY = process.env.NEXT_PUBLIC_GEMINI_API_KEY;
+// Remove all Gemini API key and direct Gemini fetch logic
+// Instead, fetch questions from your backend API (e.g., /api/interview or /api/interview/[interviewid])
+// Example:
+// useEffect(() => {
+//   async function fetchQuestions() {
+//     setLoading(true);
+//     setError(null);
+//     try {
+//       const res = await fetch(`/api/interview/[interviewid]`); // or the correct endpoint
+//       const data = await res.json();
+//       setQuestions(data.questions || []);
+//     } catch (err) {
+//       setError('Failed to load questions');
+//     } finally {
+//       setLoading(false);
+//     }
+//   }
+//   fetchQuestions();
+// }, []);
 
 
 interface Question {
@@ -23,56 +40,20 @@ export default function InterviewPage() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    async function generateQuestions() {
+    async function fetchQuestions() {
       setLoading(true);
       setError(null);
       try {
-        const prompt = `Generate 5 interview questions for a software developer. At least 1 and at most 2 should be machine coding questions. For each question, specify if it is a 'machine-coding' or 'general' question. Respond as a JSON array of objects with 'question' and 'type' fields.`;
-        const res = await fetch("https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=" + GEMINI_API_KEY, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] }),
-        });
+        const res = await fetch(`/api/interview/[interviewid]`); // or the correct endpoint
         const data = await res.json();
-        let text = data.candidates?.[0]?.content?.parts?.[0]?.text || "";
-        let parsed: { question: string; type: "general" | "machine-coding" }[] = [];
-        // Try to parse as JSON, fallback to extracting JSON array from text
-        try {
-          parsed = JSON.parse(text);
-        } catch {
-          // Try to extract JSON array from text
-          const match = text.match(/\[([\s\S]*?)\]/);
-          if (match) {
-            try {
-              parsed = JSON.parse(match[0]);
-            } catch {}
-          }
-        }
-        // Validate and sanitize questions
-        if (!Array.isArray(parsed) || parsed.length < 3) throw new Error("No questions generated");
-        // Add unique id to each question, filter out invalid
-        const withIds = parsed
-          .filter(q => q && typeof q.question === "string" && (q.type === "general" || q.type === "machine-coding"))
-          .map(q => ({ ...q, id: crypto.randomUUID() }));
-        if (withIds.length < 3) throw new Error("Not enough valid questions");
-        setQuestions(withIds);
-        setAnswers(Array(withIds.length).fill(""));
-      } catch (err: any) {
-        setError("Failed to generate questions. Using default questions.");
-        const fallback: Question[] = [
-          { id: crypto.randomUUID(), question: "What is a closure in JavaScript?", type: "general" },
-          { id: crypto.randomUUID(), question: "Write a function to reverse a linked list.", type: "machine-coding" },
-          { id: crypto.randomUUID(), question: "Explain the concept of RESTful APIs.", type: "general" },
-          { id: crypto.randomUUID(), question: "How would you optimize a slow SQL query?", type: "general" },
-          { id: crypto.randomUUID(), question: "Implement a stack using arrays.", type: "machine-coding" },
-        ];
-        setQuestions(fallback);
-        setAnswers(Array(fallback.length).fill(""));
+        setQuestions(data.questions || []);
+      } catch (err) {
+        setError('Failed to load questions');
       } finally {
         setLoading(false);
       }
     }
-    generateQuestions();
+    fetchQuestions();
   }, []);
 
   const handleAnswerChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
