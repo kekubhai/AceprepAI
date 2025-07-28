@@ -6,7 +6,9 @@ import { ArrowLeft } from "lucide-react";
 // Gemini API setup (client-side fetch)
 const GEMINI_API_KEY = process.env.NEXT_PUBLIC_GEMINI_API_KEY;
 
+
 interface Question {
+  id: string;
   question: string;
   type: "general" | "machine-coding";
 }
@@ -16,15 +18,15 @@ export default function InterviewPage() {
   const [answers, setAnswers] = useState<string[]>([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [showAnalysis, setShowAnalysis] = useState(false);
-// ...existing code up to the end of the InterviewPage component...
   const [analysis, setAnalysis] = useState("");
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     async function generateQuestions() {
       setLoading(true);
+      setError(null);
       try {
-        // Use Gemini API to generate 5 questions, 1-2 on machine coding
         const prompt = `Generate 5 interview questions for a software developer. At least 1 and at most 2 should be machine coding questions. For each question, specify if it is a 'machine-coding' or 'general' question. Respond as a JSON array of objects with 'question' and 'type' fields.`;
         const res = await fetch("https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=" + GEMINI_API_KEY, {
           method: "POST",
@@ -32,27 +34,40 @@ export default function InterviewPage() {
           body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] }),
         });
         const data = await res.json();
-        // Parse Gemini's response
         let text = data.candidates?.[0]?.content?.parts?.[0]?.text || "";
-        let parsed: Question[] = [];
+        let parsed: { question: string; type: "general" | "machine-coding" }[] = [];
+        // Try to parse as JSON, fallback to extracting JSON array from text
         try {
           parsed = JSON.parse(text);
         } catch {
-          // fallback: try to extract JSON from text (without 's' flag)
+          // Try to extract JSON array from text
           const match = text.match(/\[([\s\S]*?)\]/);
-          if (match) parsed = JSON.parse(match[0]);
+          if (match) {
+            try {
+              parsed = JSON.parse(match[0]);
+            } catch {}
+          }
         }
-        setQuestions(parsed);
-        setAnswers(Array(parsed.length).fill(""));
-      } catch (err) {
-        setQuestions([
-          { question: "What is a closure in JavaScript?", type: "general" },
-          { question: "Write a function to reverse a linked list.", type: "machine-coding" },
-          { question: "Explain the concept of RESTful APIs.", type: "general" },
-          { question: "How would you optimize a slow SQL query?", type: "general" },
-          { question: "Implement a stack using arrays.", type: "machine-coding" },
-        ]);
-        setAnswers(["", "", "", "", ""]);
+        // Validate and sanitize questions
+        if (!Array.isArray(parsed) || parsed.length < 3) throw new Error("No questions generated");
+        // Add unique id to each question, filter out invalid
+        const withIds = parsed
+          .filter(q => q && typeof q.question === "string" && (q.type === "general" || q.type === "machine-coding"))
+          .map(q => ({ ...q, id: crypto.randomUUID() }));
+        if (withIds.length < 3) throw new Error("Not enough valid questions");
+        setQuestions(withIds);
+        setAnswers(Array(withIds.length).fill(""));
+      } catch (err: any) {
+        setError("Failed to generate questions. Using default questions.");
+        const fallback: Question[] = [
+          { id: crypto.randomUUID(), question: "What is a closure in JavaScript?", type: "general" },
+          { id: crypto.randomUUID(), question: "Write a function to reverse a linked list.", type: "machine-coding" },
+          { id: crypto.randomUUID(), question: "Explain the concept of RESTful APIs.", type: "general" },
+          { id: crypto.randomUUID(), question: "How would you optimize a slow SQL query?", type: "general" },
+          { id: crypto.randomUUID(), question: "Implement a stack using arrays.", type: "machine-coding" },
+        ];
+        setQuestions(fallback);
+        setAnswers(Array(fallback.length).fill(""));
       } finally {
         setLoading(false);
       }
@@ -79,8 +94,13 @@ export default function InterviewPage() {
   };
 
   const handleSubmit = async () => {
+    // Optionally: check for empty answers
+    if (answers.some(a => !a.trim())) {
+      alert("Please answer all questions before submitting.");
+      return;
+    }
     setShowAnalysis(true);
-    // Call Gemini for analysis (simulate for now)
+    // Simulate Gemini analysis
     setAnalysis("Great effort! Your answers show good understanding. For machine coding, ensure to handle edge cases and optimize for time/space complexity.");
     // TODO: Save result to backend (Result schema)
   };
@@ -89,6 +109,13 @@ export default function InterviewPage() {
 
   if (loading) {
     return <div className="flex items-center justify-center min-h-screen">Loading questions...</div>;
+  }
+  if (error) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-screen text-center">
+        <div className="text-red-600 font-semibold mb-4">{error}</div>
+      </div>
+    );
   }
 
   return (
@@ -111,15 +138,16 @@ export default function InterviewPage() {
             )}
           </div>
           <textarea
-            className="w-full border border-gray-200 rounded-lg p-3 min-h-[120px] text-gray-900 focus:ring-blue-500 focus:border-blue-500"
-            placeholder="Type your answer here..."
+            className={`w-full border border-gray-200 rounded-lg p-3 min-h-[120px] text-gray-900 focus:ring-blue-500 focus:border-blue-500 ${currentQuestion?.type === "machine-coding" ? "font-mono" : ""}`}
+            placeholder={currentQuestion?.type === "machine-coding" ? "Write your code here..." : "Type your answer here..."}
             value={answers[currentQuestionIndex]}
             onChange={handleAnswerChange}
+            disabled={loading}
           />
           <div className="flex justify-between mt-6">
             <button
               onClick={prevQuestion}
-              disabled={currentQuestionIndex === 0}
+              disabled={currentQuestionIndex === 0 || loading}
               className="px-4 py-2 rounded-lg border flex items-center space-x-2 disabled:opacity-50"
             >
               Previous
@@ -127,14 +155,16 @@ export default function InterviewPage() {
             {currentQuestionIndex < questions.length - 1 ? (
               <button
                 onClick={nextQuestion}
-                className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+                disabled={loading}
+                className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50"
               >
                 Next
               </button>
             ) : (
               <button
                 onClick={handleSubmit}
-                className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700"
+                disabled={loading}
+                className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 disabled:opacity-50"
               >
                 Submit for Analysis
               </button>
@@ -166,5 +196,5 @@ export default function InterviewPage() {
       )}
     </div>
   );
+// End of InterviewPage component
 }
-// (End of InterviewPage component. All code after this line is removed.)

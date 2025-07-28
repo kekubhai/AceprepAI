@@ -1,10 +1,13 @@
+
 model Result {
-  id        String   @id @default(uuid())
-  userId    String
+  id          String     @id @default(uuid())
+  user        User       @relation(fields: [userId], references: [id])
+  userId      String
+  interview   Interview  @relation(fields: [interviewId], references: [id])
   interviewId String
-  answers   Json
-  analysis  String
-  createdAt DateTime @default(now())
+  answers     Json       // { questionId: string, answer: string }[]
+  analysis    String
+  createdAt   DateTime   @default(now())
 }
 
 
@@ -25,6 +28,7 @@ model User {
   email     String?  @unique
   createdAt DateTime @default(now())
   interviews Interview[]
+  results    Result[]
 }
 
 model Interview {
@@ -33,6 +37,7 @@ model Interview {
   userId    String
   createdAt DateTime @default(now())
   questions Question[]
+  results   Result[]
 }
 
 model Question {

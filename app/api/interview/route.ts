@@ -9,13 +9,17 @@ const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
 // POST: Create a new interview and return the interview ID
 export async function POST(req: NextRequest) {
   
-    try {
+  try {
     const formData = await req.formData();
     const userId = formData.get("userId") as string;
     const jobPosition = formData.get("jobPosition") as string;
     const jobDesc = formData.get("jobDesc") as string;
     const jobExperience = formData.get("jobExperience") as string;
     const file = formData.get("resume") as File | null;
+
+    if (!userId || !jobPosition || !jobDesc) {
+      return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
+    }
 
     let resumeText = "";
     if (file) {
@@ -37,7 +41,29 @@ export async function POST(req: NextRequest) {
     const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro-latest" });
     const prompt = `Generate 5 interview questions for the following role: ${jobPosition}.\nResume: ${resumeText || jobDesc}`;
     const result = await model.generateContent(prompt);
-    const questions = result.response.text().split(/\n|\d+\. /).filter(q => q.trim().length > 10);
+    let text = result.response.text();
+    let parsed: { question: string }[] = [];
+    try {
+      parsed = JSON.parse(text);
+    } catch {
+      // fallback: try to extract JSON array from text
+      const match = text.match(/\[([\s\S]*?)\]/);
+      if (match) {
+        try {
+          parsed = JSON.parse(match[0]);
+        } catch {}
+      }
+    }
+    let questions: string[] = [];
+    if (Array.isArray(parsed) && parsed.length > 0 && parsed[0].question) {
+      questions = parsed.map(q => q.question).filter(q => typeof q === "string" && q.length > 10);
+    } else {
+      // fallback to line split
+      questions = text.split(/\n|\d+\. /).filter(q => q.trim().length > 10);
+    }
+    if (questions.length < 3) {
+      return NextResponse.json({ error: "Failed to generate enough questions" }, { status: 500 });
+    }
 
     // Save interview and questions in PostgreSQL
     const interview = await prisma.interview.create({
@@ -52,7 +78,7 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({
       id: interview.id,
-      questions: interview.questions.map(q => ({ question: q.text })),
+      questions: interview.questions.map(q => ({ question: q.text, id: q.id })),
     });
   } catch (err: any) {
     return NextResponse.json({ error: err.message || "Server error" }, { status: 500 });
