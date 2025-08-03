@@ -81,16 +81,37 @@ export async function POST(req: NextRequest, { params }: { params: { interviewid
   }
 }
 
-// PATCH: Update answer for a question
+// PATCH: Update answers for the interview
 export async function PATCH(req: NextRequest, { params }: { params: { interviewid: string } }) {
   try {
     const { interviewid } = params;
-    const { questionId, answer } = await req.json();
-    const updated = await prisma.question.update({
-      where: { id: questionId, interviewId: interviewid },
-      data: { answer },
+    const { answers } = await req.json();
+    
+    // Find the interview
+    const interview = await prisma.interview.findUnique({
+      where: { id: interviewid },
+      include: { questions: true },
     });
-    return NextResponse.json({ success: true, updated });
+    
+    if (!interview) {
+      return NextResponse.json({ error: "Interview not found" }, { status: 404 });
+    }
+
+    // Save the result with answers
+    const result = await prisma.result.create({
+      data: {
+        userId: interview.userId,
+        interviewId: interviewid,
+        answers: JSON.stringify(answers),
+        analysis: "Great effort! Your answers show good understanding. Keep practicing to improve further."
+      },
+    });
+
+    return NextResponse.json({ 
+      success: true,
+      resultId: result.id,
+      analysis: "Great effort! Your answers show good understanding. Keep practicing to improve further."
+    });
   } catch (err: any) {
     return NextResponse.json({ error: err.message || "Server error" }, { status: 500 });
   }

@@ -2,27 +2,7 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
-
-// Remove all Gemini API key and direct Gemini fetch logic
-// Instead, fetch questions from your backend API (e.g., /api/interview or /api/interview/[interviewid])
-// Example:
-// useEffect(() => {
-//   async function fetchQuestions() {
-//     setLoading(true);
-//     setError(null);
-//     try {
-//       const res = await fetch(`/api/interview/[interviewid]`); // or the correct endpoint
-//       const data = await res.json();
-//       setQuestions(data.questions || []);
-//     } catch (err) {
-//       setError('Failed to load questions');
-//     } finally {
-//       setLoading(false);
-//     }
-//   }
-//   fetchQuestions();
-// }, []);
-
+import { useParams } from "next/navigation";
 
 interface Question {
   id: string;
@@ -30,6 +10,9 @@ interface Question {
 }
 
 export default function InterviewPage() {
+  const params = useParams();
+  const interviewId = params.interviewid as string;
+  
   const [questions, setQuestions] = useState<Question[]>([]);
   const [answers, setAnswers] = useState<string[]>([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -40,12 +23,18 @@ export default function InterviewPage() {
 
   useEffect(() => {
     async function fetchQuestions() {
+      if (!interviewId) return;
+      
       setLoading(true);
       setError(null);
       try {
-        const res = await fetch(`/api/interview/[interviewid]`); // or the correct endpoint
+        const res = await fetch(`/api/interview/${interviewId}`);
+        if (!res.ok) {
+          throw new Error("Failed to fetch interview");
+        }
         const data = await res.json();
         setQuestions(data.questions || []);
+        setAnswers(new Array(data.questions?.length || 0).fill(""));
       } catch (err) {
         setError('Failed to load questions');
       } finally {
@@ -53,8 +42,7 @@ export default function InterviewPage() {
       }
     }
     fetchQuestions();
-  }, []);
-
+  }, [interviewId]);
   const handleAnswerChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const updated = [...answers];
     updated[currentQuestionIndex] = e.target.value;
@@ -79,10 +67,26 @@ export default function InterviewPage() {
       alert("Please answer all questions before submitting.");
       return;
     }
-    setShowAnalysis(true);
-    // Simulate Gemini analysis
-    setAnalysis("Great effort! Your answers show good understanding. For machine coding, ensure to handle edge cases and optimize for time/space complexity.");
-    // TODO: Save result to backend (Result schema)
+    
+    try {
+      const res = await fetch(`/api/interview/${interviewId}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ answers }),
+      });
+      
+      if (!res.ok) {
+        throw new Error("Failed to submit answers");
+      }
+      
+      const data = await res.json();
+      setShowAnalysis(true);
+      setAnalysis(data.analysis || "Great effort! Your answers show good understanding. Keep practicing to improve further.");
+    } catch (error) {
+      alert("Failed to submit answers. Please try again.");
+    }
   };
 
   const currentQuestion = questions[currentQuestionIndex];

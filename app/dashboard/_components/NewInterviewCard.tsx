@@ -79,8 +79,6 @@ export default function NewInterviewCard() {
     setLoading(true);
     try {
       const formData = new FormData();
-      // TODO: Replace with actual userId from auth context
-      formData.append("userId", "demo-user-id");
       formData.append("jobPosition", jobPosition);
       formData.append("jobDesc", jobDescription);
       formData.append("jobExperience", jobExperience);

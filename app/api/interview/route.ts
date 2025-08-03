@@ -25,7 +25,7 @@ export async function POST(req: NextRequest) {
     const jobExperience = parseInt(formData.get("jobExperience") as string);
 
     // Generate questions using Gemini
-    const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
+    const GEMINI_API_KEY = process.env.NEXT_PUBLIC_GEMINI_API_KEY;
     let questions: { text: string }[] = [];
     try {
       const prompt = `Generate 5 interview questions for the following role: ${jobPosition}.\nDescription: ${jobDescription}\nExperience: ${jobExperience} years. Respond as a JSON array of objects with 'text' fields.`;
