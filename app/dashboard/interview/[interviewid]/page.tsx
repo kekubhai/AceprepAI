@@ -3,10 +3,24 @@ import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import { useParams } from "next/navigation";
+import AnalysisResults from "../../../../components/AnalysisResults";
 
 interface Question {
   id: string;
   question: string;
+}
+
+interface AnalysisData {
+  overallScore: number;
+  skillsAnalysis: {
+    technicalSkills: any;
+    communicationSkills: any;
+    learningAbility: any;
+    projectExperience: any;
+  };
+  detailedFeedback: string;
+  recommendation: "HIRE" | "CONDITIONAL_HIRE" | "REJECT";
+  nextSteps: string;
 }
 
 export default function InterviewPage() {
@@ -17,8 +31,9 @@ export default function InterviewPage() {
   const [answers, setAnswers] = useState<string[]>([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [showAnalysis, setShowAnalysis] = useState(false);
-  const [analysis, setAnalysis] = useState("");
+  const [analysis, setAnalysis] = useState<AnalysisData | null>(null);
   const [loading, setLoading] = useState(true);
+  const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -62,12 +77,13 @@ export default function InterviewPage() {
   };
 
   const handleSubmit = async () => {
-    // Optionally: check for empty answers
+    // Check for empty answers
     if (answers.some(a => !a.trim())) {
       alert("Please answer all questions before submitting.");
       return;
     }
     
+    setSubmitting(true);
     try {
       const res = await fetch(`/api/interview/${interviewId}`, {
         method: "PATCH",
@@ -83,9 +99,11 @@ export default function InterviewPage() {
       
       const data = await res.json();
       setShowAnalysis(true);
-      setAnalysis(data.analysis || "Great effort! Your answers show good understanding. Keep practicing to improve further.");
+      setAnalysis(data.analysis);
     } catch (error) {
       alert("Failed to submit answers. Please try again.");
+    } finally {
+      setSubmitting(false);
     }
   };
 
@@ -136,7 +154,7 @@ export default function InterviewPage() {
             {currentQuestionIndex < questions.length - 1 ? (
               <button
                 onClick={nextQuestion}
-                disabled={loading}
+                disabled={loading || submitting}
                 className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50"
               >
                 Next
@@ -144,38 +162,23 @@ export default function InterviewPage() {
             ) : (
               <button
                 onClick={handleSubmit}
-                disabled={loading}
+                disabled={loading || submitting}
                 className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 disabled:opacity-50"
               >
-                Submit for Analysis
+                {submitting ? "Analyzing..." : "Submit for Analysis"}
               </button>
             )}
           </div>
         </div>
       ) : (
-        <div className="bg-white rounded-xl shadow-sm border border-green-200 p-6 text-center">
-          <h2 className="text-xl font-bold text-green-700 mb-4">AI Analysis</h2>
-          <p className="text-gray-800 mb-6">{analysis}</p>
-          <h3 className="text-lg font-semibold text-gray-900 mb-2">Your Answers</h3>
-          <ol className="list-decimal list-inside text-left space-y-2">
-            {questions.map((q, i) => (
-              <li key={i}>
-                <span className="font-medium text-blue-700">Q{i + 1}:</span> {q.question}
-                <div className="bg-gray-50 border border-gray-100 rounded-lg p-2 mt-1 mb-4 text-gray-700">
-                  <span className="font-semibold">Your Answer:</span> {answers[i] || <span className="italic text-gray-400">No answer</span>}
-                </div>
-              </li>
-            ))}
-          </ol>
-          <button
-            onClick={() => setShowAnalysis(false)}
-            className="mt-6 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
-          >
-            Retake Interview
-          </button>
-        </div>
+        analysis && (
+          <AnalysisResults 
+            analysis={analysis}
+            questions={questions}
+            answers={answers}
+          />
+        )
       )}
     </div>
   );
-// End of InterviewPage component
 }

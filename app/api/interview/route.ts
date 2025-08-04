@@ -2,7 +2,7 @@
 
 import { NextRequest, NextResponse } from "next/server";
 import { PrismaClient } from "@prisma/client";
-import { auth } from "@clerk/nextjs/server"; // Clerk Auth for App Router
+import { auth } from "@clerk/nextjs/server";
 
 const prisma = new PrismaClient();
 
@@ -12,7 +12,7 @@ export async function POST(req: NextRequest) {
     if (!clerkUserId) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
-    // Find the user in your DB using clerkId
+
     const user = await prisma.user.findUnique({
       where: { clerkId: clerkUserId },
     });
@@ -22,13 +22,19 @@ export async function POST(req: NextRequest) {
     const formData = await req.formData();
     const jobPosition = formData.get("jobPosition") as string;
     const jobDescription = formData.get("jobDesc") as string;
-    const jobExperience = parseInt(formData.get("jobExperience") as string);
+    const jobExperience = formData.get("jobExperience") as string;
+    const resume = formData.get("resume") as File | null;
+
+    let resumeText = "";
+    if (resume) {
+      resumeText = await resume.text();
+    }
 
     // Generate questions using Gemini
     const GEMINI_API_KEY = process.env.NEXT_PUBLIC_GEMINI_API_KEY;
     let questions: { text: string }[] = [];
     try {
-      const prompt = `Generate 5 interview questions for the following role: ${jobPosition}.\nDescription: ${jobDescription}\nExperience: ${jobExperience} years. Respond as a JSON array of objects with 'text' fields.`;
+      const prompt = `Generate 5 interview questions for the following role: ${jobPosition}.\nDescription: ${jobDescription}\nExperience: ${jobExperience} years.\n${resumeText ? `Resume: ${resumeText}` : ""}\nRespond as a JSON array of objects with 'text' fields.`;
       const res = await fetch(
         `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-lite:generateContent?key=${GEMINI_API_KEY}`,
         {
@@ -72,6 +78,10 @@ export async function POST(req: NextRequest) {
     const interview = await prisma.interview.create({
       data: {
         userId: user.id,
+        jobPosition,
+        jobDescription,
+        jobExperience,
+        resume: resumeText,
         questions: {
           create: questions.map(q => ({ text: q.text })),
         },
