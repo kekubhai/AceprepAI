@@ -84,7 +84,7 @@ export default function Features() {
               Ready to transform your interview skills?
             </h3>
             <p className="text-purple-100 text-lg mb-8 max-w-2xl mx-auto">
-              Join thousands of professionals who've already improved their interview performance with AcePrep.
+              Join thousands of professionals who have already improved their interview performance with AcePrep.
             </p>
             <a 
               href="/sign-up" 

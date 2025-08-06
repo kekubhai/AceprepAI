@@ -55,7 +55,7 @@ export default function Contact() {
             </span>
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Have questions about AcePrep? We'd love to hear from you. Send us a message and we'll respond as soon as possible.
+            Have questions about AcePrep? We would love to hear from you. Send us a message and we will respond as soon as possible.
           </p>
         </div>
 

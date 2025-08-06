@@ -57,7 +57,7 @@ export default function Footer() {
               </div>
               <p className="text-gray-600 mb-6 leading-relaxed">
                 Revolutionizing interview preparation with AI-powered insights and personalized feedback. 
-                Join thousands of professionals who've already elevated their interview game.
+                Join thousands of professionals who have already elevated their interview game.
               </p>
               <div className="flex space-x-4">
                 {socialLinks.map((social) => (
