@@ -8,6 +8,7 @@ import Contact from '../components/Contact'
 import Header from '../components/Header'
 import BackgroundDecoration from '../components/BackgroundDec'
 import Hero from '../components/Hero'
+import Footer from '../components/Footer'
 import LandingInterviewSignup from '../components/LandingInterviewSignup'
 
 export default function Home() {
@@ -27,6 +28,7 @@ export default function Home() {
       {/* <Testimonials /> */}
       <Pricing />
       <Contact />
+      <Footer />
       
     </main>
   )
