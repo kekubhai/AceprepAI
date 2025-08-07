@@ -24,7 +24,7 @@ export async function GET(req: NextRequest, { params }: { params: { interviewid:
     const { interviewid } = params;
     const interview = await prisma.interview.findUnique({
       where: { 
-        id: interviewid, // Use string, not Number()
+        id: interviewid, 
         userId: user.id 
       },
       include: { questions: true, user: true },
