@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import Features from '../components/Features'
+import Features from '../components/FeaturesNew'
 import Testimonials from '../components/Testimonials'
 import Pricing from '../components/Pricing'
 import Contact from '../components/Contact'
@@ -9,7 +9,6 @@ import Header from '../components/Header'
 import BackgroundDecoration from '../components/BackgroundDec'
 import Hero from '../components/Hero'
 import Footer from '../components/Footer'
-import LandingInterviewSignup from '../components/LandingInterviewSignup'
 
 export default function Home() {
   const [isLoaded, setIsLoaded] = useState(false)
@@ -23,9 +22,8 @@ export default function Home() {
       <BackgroundDecoration />
       <Header />
       <Hero />
-   
       <Features />
-      {/* <Testimonials /> */}
+      <Testimonials />
       <Pricing />
       <Contact />
       <Footer />
