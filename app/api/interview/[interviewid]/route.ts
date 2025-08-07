@@ -24,7 +24,7 @@ export async function GET(req: NextRequest, { params }: { params: { interviewid:
     const { interviewid } = params;
     const interview = await prisma.interview.findUnique({
       where: { 
-        id: interviewid,
+        id: interviewid, // Use string, not Number()
         userId: user.id 
       },
       include: { questions: true, user: true },
@@ -220,11 +220,12 @@ Be honest, constructive, and critical. Focus on what a startup would value: adap
       };
     }
 
-    // Save result with comprehensive analysis
+ 
     const result = await prisma.result.create({
       data: {
         userId: interview.userId,
         interviewId: interviewid,
+
         answers: JSON.stringify(answers),
         analysis: JSON.stringify(analysisResult)
       },
