@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useUser } from "@clerk/nextjs";
 import { Button } from "./ui/button";
 import { checkUser } from "../lib/checkUser";
-
+import Image from "next/image";
 const Header =  () => {
   const user =  checkUser(); // Only called once per render/request
 
@@ -14,9 +14,10 @@ const Header =  () => {
       <div className="container mx-auto px-6 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-2 group">
           <span className="relative flex items-center">
-            <span className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent tracking-tight font-geist">
-              AcePrep
-            </span>
+           
+             
+              <Image src="/logo.svg" alt="Logo" width={60} height={60} />
+            
             <span className="ml-2 w-2.5 h-2.5 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-full shadow-sm animate-pulse"></span>
           </span>
         </Link>
