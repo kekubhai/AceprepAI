@@ -18,7 +18,7 @@ export default function Home() {
   }, [])
 
   return (
-    <main className={`min-h-screen bg-gradient-to-br from-purple-50 to-white ${isLoaded ? 'opacity-100' : 'opacity-0'} transition-opacity duration-500 overflow-hidden`}>
+    <main className={`min-h-screen bg-gradient-to-br from-purple-500 to-white ${isLoaded ? 'opacity-100' : 'opacity-0'} transition-opacity duration-500 overflow-hidden`}>
       <BackgroundDecoration />
       <Header />
       <Hero />
