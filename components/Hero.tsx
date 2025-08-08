@@ -117,7 +117,7 @@ export default function Hero() {
               <div className="flex items-center justify-between mb-6">
                 <div className="flex items-center space-x-3">
                   <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl flex items-center justify-center">
-                    <span className="text-black text-xl">🎯</span>
+                    <span className="text-white text-xl">🎯</span>
                   </div>
                   <div>
                     <h3 className="text-lg font-semibold text-gray-900">AI Interview Coach</h3>
